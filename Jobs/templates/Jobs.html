@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+  <!-- Breadcrumb Section -->
+  <div class="breadcumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <!-- Breadcrumb Text -->
+        <div class="col-lg-6">
+          <div class="breadcumb-content">
+            <h1 class="breadcumb-title">{% trans "Career Section" %}</h1>
+            <ul class="breadcumb-menu">
+              <li>
+                <a href="{% url 'Home' %} ">{% trans "Home" %}a</a>
+              </li>
+              <li class="active">{% trans "Career" %}</li> 
+            </ul>
+          </div>
+        </div>
+
+        <!-- Breadcrumb Image -->
+        <div class="col-lg-6 d-lg-block d-none">
+          {% if job_info.image_banner %}
+            <div class="breadcumb-thumb">
+              <img src="{{ job_info.image_banner.url }}" alt="img" />
+            </div>
+          {% else %}
+            <div class="breadcumb-thumb">
+              <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-bottom mt-5">
+    <div class="container">
+      <div class="row flex-row-reverse">
+        <div class="col-lg-6 text-lg-end m-auto">
+          <div class="faq-thumb2 mb-xl-0 mb-50">
+            <img src="assets/img/normal/jobs.jpg" alt="img" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="contact-form-wrap p-0">
+            <div class="title-area">
+              <span class="sub-title">{{ job_info.title }}</span>
+            </div>
+            <form action="{% url 'jobs' %}" method="POST" class="appointment-form ajax-contact" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% if messages %}
+                  <script>
+                      document.addEventListener("DOMContentLoaded", function () {
+                          {% for message in messages %}
+                              Swal.fire({
+                                  icon: '{{ message.tags }}' === 'success' ? 'success' : 'error',  
+                                  title: '{{ message.tags }}' === 'success' ? '{% trans "Thank you!" %}' : '{% trans "Error" %}',
+                                  text: '{{ message }}',
+                                  confirmButtonText: 'OK'
+                              });
+                          {% endfor %}
+                      });
+                  </script>
+              {% endif %}
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group position-relative">
+                          <input type="text" class="form-control" name="name" id="name" placeholder="{% trans 'Name' %}" required />
+                          <span class="form-icon"><i class="fas fa-user"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group position-relative">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="{% trans 'Email' %}" required />
+                          <span class="form-icon"><i class="fas fa-envelope"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group position-relative">
+                          <input type="text" class="form-control" name="number" id="number" placeholder="{% trans 'Phone Number' %}" required />
+                          <span class="form-icon"><i class="fas fa-phone"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group position-relative">
+                          <input type="text" class="form-control" name="job_title" id="job_title" placeholder="{% trans 'Job Title' %}" required />
+                          <span class="form-icon"><i class="fas fa-briefcase"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group position-relative">
+                          <input type="text" class="form-control" name="experience_years" id="experience_years" placeholder="{% trans 'Experience Years' %}" required />
+                          <span class="form-icon"><i class="fas fa-calendar-alt"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <label for="file-upload-resume">{% trans "Resume" %}</label>
+                      <div class="form-group position-relative">
+                          <input type="file" name="resume" id="file-upload-resume" required />
+                          <span class="form-icon"><i class="fas fa-file-alt"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <label for="file-upload-portfolio">{% trans "Portfolio (Optional)" %}</label>
+                      <div class="form-group position-relative">
+                          <input type="file" name="portfolio" id="file-upload-portfolio" />
+                          <span class="form-icon"><i class="fas fa-briefcase"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group col-12">
+                  <textarea name="about" placeholder="{% trans 'A brief about yourself..' %}" id="contactForm" class="form-control" required></textarea>
+                  <span class="form-icon"><i class="fas fa-pencil-alt"></i></span>
+              </div>
+              <div class="form-btn col-12">
+                  <button class="btn style2" type="submit">{% trans "Send" %} <i class="fas fa-arrow-right ms-2"></i></button>
+              </div>
+          </form>
+          <style>
+
+
+
+
+
+            /* تحسين تنسيق الحقول */
+.appointment-form .form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* تحسين شكل الحقول */
+.appointment-form .form-control {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 40px 10px 15px; /* توفير مساحة للأيقونة */
+  font-size: 16px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+
+
+/* إضافة أيقونات داخل الحقول */
+.appointment-form .form-icon {
+  position: absolute;
+  top: 50%;
+  font-size: 20px;
+  color: #F1683C;
+  pointer-events: none; /* منع التفاعل مع الأيقونة */
+  transform: translateY(-50%);
+}
+
+/* تحديد المكان الصحيح للأيقونات في اللغات */
+html[lang="en"] .appointment-form .form-icon {
+  left: 10px; /* الأيقونة على اليسار في اللغة الإنجليزية */
+}
+
+html[lang="ar"] .appointment-form .form-icon {
+  right: 10px; /* الأيقونة على اليمين في اللغة العربية */
+}
+
+/* تحسين الشكل عند التركيز على الحقل */
+.appointment-form .form-control:focus {
+  border-color: #F1683C;
+  box-shadow: 0 0 8px rgba(241, 104, 60, 0.2);
+  outline: none;
+}
+
+/* تخصيص النصوص في اللغات التي تكتب من اليمين لليسار */
+html[lang="ar"] .appointment-form .form-control {
+  text-align: right; /* محاذاة النصوص لليمين */
+  direction: rtl; /* الاتجاه من اليمين لليسار */
+}
+
+/* تخصيص النصوص في اللغات التي تكتب من اليسار لليمين */
+html[lang="en"] .appointment-form .form-control {
+  text-align: left; /* محاذاة النصوص لليسار */
+  direction: ltr; /* الاتجاه من اليسار لليمين */
+}
+
+/* إضافة تأثيرات للأزرار */
+.appointment-form .btn.style2 {
+  background-color: #F1683C;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.appointment-form .btn.style2:hover {
+  background-color: #d4572f;
+}
+
+/* جعل الحقول متجاوبة */
+@media (max-width: 768px) {
+  .appointment-form .form-control {
+      font-size: 14px;
+      padding: 10px 30px 10px 15px;
+  }
+  .appointment-form .form-icon {
+      font-size: 18px;
+  }
+}
+
+          </style>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

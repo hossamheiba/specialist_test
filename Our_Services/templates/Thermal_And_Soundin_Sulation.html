@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+  <!-- Breadcrumb Section -->
+  <div class="breadcumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <!-- Breadcrumb Text -->
+        <div class="col-lg-6">
+          <div class="breadcumb-content">
+            <h1 class="breadcumb-title">{% trans 'Thermal And Sound Insulation Section' %}</h1>
+            <ul class="breadcumb-menu">
+              <li>
+                <a href="{% url 'Home' %} ">{% trans 'Home' %}</a>
+              </li>
+              <li class="active">
+                {% trans 'Thermal And Sound Insulation' %}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Breadcrumb Image -->
+        <div class="col-lg-6 d-lg-block d-none">
+          {% if thermalandsoundinsulation.image_banner %}
+            <div class="breadcumb-thumb">
+              <img src="{{ thermalandsoundinsulation.image_banner.url }}" alt="img" />
+            </div>
+          {% else %}
+            <div class="breadcumb-thumb">
+              <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First Section -->
+  <div class="container py-5">
+    <div class="row py-5 my-5">
+      <div class="col-12 col-md-6 m-auto">
+        <h2 class="mb-3 pt-3">{{ thermalandsoundinsulation.first_section_title|default:_('Title not available') }}</h2>
+        <p class="mb-4">{{ thermalandsoundinsulation.first_section_description|default:_('Description not available')|safe }}</p>
+        <a href="{% url 'Book_Service:book_service' %}" class="btn style2 style-radius"><i class="fas fa-calendar-alt mx-2"></i> {% trans 'Book the service now' %}</a>
+      </div>
+
+      <div class="col-12 col-md-6 text-center">
+        {% if thermalandsoundinsulation.first_section_image %}
+          <img src="{{ thermalandsoundinsulation.first_section_image.url }}" class="img-fluid" alt="Image" />
+        {% else %}
+          <img src="{% static 'assets/img/normal/default-image.png' %}" class="img-fluid" alt="Default Image" />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Section with Slider -->
+  <div class="team-area-2 py-5">
+    <div class="container">
+      <div class="row gx-30 justify-content-between align-items-center">
+        <!-- Text and Controls -->
+        <div class="col-lg-8">
+          <div class="title-area mb-lg-0">
+            <h2 class="sec-title">
+              {{ thermalandsoundinsulation.second_section_title|default:_('Title not available') }}
+              <img class="title-bg-shape" src="{% static 'assets/img/bg/title-bg-shape.png' %}" alt="img" />
+            </h2>
+            <p class="sec-text mb-4">{{ thermalandsoundinsulation.second_section_description|default:_('Description not available') }}</p>
+            <div class="icon-box">
+              <button data-slick-prev="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" class="slick-arrow style2 default"><i class="fas fa-arrow-right"></i></button>
+              <button data-slick-next="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" class="slick-arrow style2 default"><i class="fas fa-arrow-left"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="col-lg-4">
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              {% if not sliders %}
+                {% if thermalandsoundinsulation.second_section_image %}
+                  <div class="carousel-item active">
+                    <img src="{{ thermalandsoundinsulation.second_section_image.url }}" style="height: 35vh;" class="d-block w-100 rounded-3" alt="Image" />
+                  </div>
+                {% else %}
+                  <div class="carousel-item active">
+                    <img src="{% static 'assets/img/normal/default-slider-image.png' %}" style="height: 35vh;" class="d-block w-100 rounded-3" alt="Default Slider" />
+                  </div>
+                {% endif %}
+              {% else %}
+                {% for slider in sliders %}
+                  <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                    <img src="{{ slider.slider_image.url }}" style="height: 35vh;" class="d-block w-100 rounded-3" alt="Image" />
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

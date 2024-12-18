@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+<style>
+    /* الحاوية الرئيسية */
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #eaeff3;
+        direction: ltr; /* الافتراضي LTR */
+        animation: fadeIn 1s ease-in-out;
+        min-height: 100vh;
+    }
+    
+    .profile-container.rtl {
+        direction: rtl; /* دعم RTL */
+    }
+    
+    /* بطاقة البروفايل */
+    .profile-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    
+    .profile-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* العنوان */
+    .profile-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    
+    .profile-title:after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 4px;
+        background-color: #f26b3c;
+        margin: 10px auto 0;
+        border-radius: 2px;
+    }
+    
+    /* صورة الملف الشخصي */
+    .profile-image {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 20px auto;
+        border: 5px solid #f26b3c;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .profile-image:hover {
+        transform: scale(1.1);
+    }
+    
+    /* تفاصيل البروفايل */
+    .profile-details {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    
+    .profile-details p {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666;
+    }
+    
+    .profile-details p strong {
+        min-width: 120px;
+        display: inline-block;
+    }
+    
+    .profile-details p i {
+        color: #f26b3c;
+        margin-right: 10px;
+    }
+    
+    /* أزرار الإجراءات */
+    .profile-actions {
+        margin-top: 30px;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: #f26b3c;
+        color: #fff;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+    }
+    
+    .btn:hover {
+        background-color: #e55b2d;
+        transform: scale(1.05);
+    }
+    
+    .logout-btn {
+        background-color: #dc3545;
+    }
+    
+    .logout-btn:hover {
+        background-color: #c82333;
+    }
+    
+    /* شريط التقدم */
+
+    
+    /* استجابة الشاشات الصغيرة */
+    @media (max-width: 768px) {
+        .profile-card {
+            padding: 20px;
+        }
+    
+        .profile-title {
+            font-size: 22px;
+        }
+    
+        .btn {
+            padding: 10px 20px;
+        }
+    }
+    </style>
+    
+    <div class="profile-container {% if language == 'ar' %}rtl{% else %}ltr{% endif %}">
+        <div class="profile-card">
+            <h1 class="profile-title">{% trans "Profile" %}</h1>
+            {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" alt="{% trans 'Profile Image' %}" class="profile-image">
+            {% else %}
+            <img src="{% static 'default-avatar.png' %}" alt="{% trans 'Default Profile Image' %}" class="profile-image">
+            {% endif %}
+                    
+            <div class="profile-details">
+                <p><i class="fas fa-phone"></i> <strong>{% trans "Phone Number:" %}</strong> {{ user.phone_number }}</p>
+                <p><i class="fas fa-user"></i> <strong>{% trans "First Name:" %}</strong> {{ user.first_name }}</p>
+                <p><i class="fas fa-user"></i> <strong>{% trans "Last Name:" %}</strong> {{ user.last_name }}</p>
+            </div>
+            
+
+            
+            <div class="profile-actions">
+                <a href="{% url 'update_profile' %}" class="btn">{% trans "Edit Profile" %}</a>
+                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn logout-btn">{% trans "Logout" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}

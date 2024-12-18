@@ -1,0 +1,37 @@
+/* تخصيص الألوان والخطوط */
+.model-unavailabledate .field-date {
+    font-size: 18px;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.model-unavailabledate td {
+    text-align: center;
+}
+
+.model-unavailabledate th {
+    background-color: #F1683C;
+    color: white;
+    font-size: 16px;
+}
+
+/* تخصيص خانة البحث */
+input[type="search"] {
+    border: 1px solid #F1683C;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+/* تخصيص الأزرار في لوحة التحكم */
+button {
+    background-color: #F1683C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d65c32;
+}

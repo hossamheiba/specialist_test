@@ -1,0 +1,143 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block body %}
+
+<!-- Breadcrumb Section -->
+<div class="breadcumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb Text -->
+            <div class="col-lg-6">
+                <div class="breadcumb-content">
+                    <h1 class="breadcumb-title">قسم  مركزنا</h1>
+                    <ul class="breadcumb-menu">
+                        <li><a href="{% url 'Home' %}"> الرئيسية </a></li>
+                        <li class="active">السمكرة مركزنا</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Breadcrumb Image -->
+            <div class="col-lg-6 d-lg-block d-none">
+                {% if our_center.image_banner %}
+                    <div class="breadcumb-thumb">
+                        <img src="{{ our_center.image_banner.url }}" alt="img" />
+                    </div>
+                {% else %}
+                    <div class="breadcumb-thumb">
+                        <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- First Section -->
+<div class="container py-5">
+    <div class="row py-5 my-5" style="border-radius: 15px; background-image: url(assets/img/normal/new.png); background-size: cover;">
+        <div class="col-12 col-md-6 m-auto">
+            <h2 class="mb-3 pt-3">{{ our_center.first_section_title|default:"العنوان غير متوفر" }}</h2>
+            <p class="mb-4">{{ our_center.first_section_description|default:"الوصف غير متوفر" }}</p>
+            <a href="{% url 'Book_Service:book_service' %}" class="btn style2 style-radius">
+                <i class="fas fa-calendar-alt mx-2"></i> {% trans 'Book a service now' %}
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 text-center">
+            {% if our_center.first_section_image %}
+                <img src="{{ our_center.first_section_image.url }}" class="img-fluid" alt="Image">
+            {% else %}
+                <img src="{% static 'assets/img/normal/default-image.png' %}" class="img-fluid" alt="Default Image">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 ">
+    <div class="row py-5 my-5">
+        <div class="col-12 col-md-6 ">
+            <div class="row text-center rounded-2 pt-3" style="background-color: #F1683C;">
+                <h4 class="text-white">
+                    {{ center.title|default:"Specialists Center for Vehicle Maintenance" }}
+                </h4>
+            </div>
+
+            <div class="row mt-5 m-auto">
+                <p>
+                    <i style="color: #F1683C;" class="fas fa-map-marker-alt mr-5"></i>
+                    {{ center.address|default:"طريق الأمير سعود الفيصل، حي الخالدية البحرية، الدمام، المملكة العربية السعودية. 32540" }}
+                </p>
+                <p>
+                    <i style="color: #F1683C;" class="fas fa-clock mr-5"></i>
+                    {{ center.working_hours|default:"8AM - 7:30PM" }}
+                </p>
+                <p>
+                    <i style="color: #F1683C;" class="fas fa-calendar-alt mr-5"></i>
+                    {{ center.working_days|default:"من السبت إلى الخميس" }}
+                </p>
+                <p>
+                    الجمعة: {{ center.friday_status|default:"مغلق" }}
+                </p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            <div style="border-radius: 10px;" id="map"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+
+    .leaflet-control-attribution {
+        display: none;
+    }
+
+    
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // إعداد الخريطة
+    var map = L.map('map', {
+        attributionControl: false // تعطيل عرض النص (attribution) في أسفل الخريطة
+    }).setView([26.39979944036719, 50.16835629901516], 11);
+
+    // طبقة OpenStreetMap مع تعطيل الـ attribution
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '' // إلغاء النص تمامًا
+    }).addTo(map);
+
+    // المواقع القادمة من Django
+    var locations = {{ locations|safe }};
+    
+    locations.forEach(function(location) {
+        var marker = L.marker([location.latitude, location.longitude]).addTo(map);
+        var popupContent = `
+            <div>
+                <h3>${location.title}</h3>
+                <p>${location.description}</p>
+                <p><a href="${location.url}" target="_blank">${location.address}</a></p>
+                ${location.image ? `<img src="${location.image}" alt="Image" style="width:100px; height:auto;">` : ''}
+            </div>
+        `;
+        marker.bindPopup(popupContent);
+    });
+</script>
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+

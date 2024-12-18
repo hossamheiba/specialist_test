@@ -1,0 +1,92 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block body %}
+
+
+<div class="breadcumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="breadcumb-content">
+                    <h1 class="breadcumb-title">{% trans 'Frequently Asked Questions Section' %}</h1>
+                    <ul class="breadcumb-menu">
+                        <li><a href="{% url 'Home' %} "> {% trans 'Home' %} </a></li>
+                        <li class="active"> {% trans 'Frequently Asked Questions' %}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 d-lg-block d-none">
+                {% if faq_section.image_banner %}
+                    <div class="breadcumb-thumb">
+                        <img src="{{ faq_section.image_banner.url }}" alt="img" />
+                    </div>
+                {% else %}
+                    <div class="breadcumb-thumb">
+                        <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row py-5 my-5" >
+        <div class="col-12 col-md-6 m-auto">
+            <h2 class="mb-3 pt-3">{{ faq_section.title|default:_('Title not available') }}</h2>
+            <p class="mb-4">{{ faq_section.description|default:_('Description not available')}}</p>
+            <a href="{% url 'Book_Service:book_service' %}" class="btn style2 style-radius"><i class="fas fa-calendar-alt mx-2"></i> {% trans 'Book service now' %}</a>
+
+        </div>
+
+        <div class="col-12 col-md-6 text-center">
+            <img src="{{ faq_section.image.url" class="img-fluid" alt="Image">
+        </div>
+    </div>
+</div>
+
+<div class="faq-area-1 space-bottom">
+    <div class="container">
+        <div class="faq-wrap space" style="background-image: url({% static 'assets/img/bg/faq-bg.png' %}); background-color: #f4f4f4; background-size: cover;">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-6 col-11">
+                    <div class="title-area text-center">
+                        <h2 class="sub-title pt-5">{% trans 'Frequently Asked Questions' %}</h2>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-md-10 col-11">
+                    <div class="accordion-area accordion" id="faqAccordion">
+                        {% if faqs %}
+                            {% for faq in faqs %}
+                                <div class="accordion-card style3">
+                                    <div class="accordion-header" id="collapse-item-{{ forloop.counter }}">
+                                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapse-{{ forloop.counter }}" aria-expanded="{{ forloop.first|yesno:'true,false' }}" aria-controls="collapse-{{ forloop.counter }}">
+                                            {{ faq.question|default:_("Question not available") }}
+                                        </button>
+                                    </div>
+                                    <div id="collapse-{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="collapse-item-{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p class="faq-text">
+                                                {{ faq.answer|default:_("Answer not available") }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">{% trans 'Frequently asked questions are not available at the moment.' %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock body %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block body %}
+
+
+
+
+<div class="text-center my-5 py-5">
+    <img src="{% static 'assets/img/done.png' %}" alt="done">
+    <h1 class="my-5">تم حجز الموعد بنجاح </h1>
+    <h5>شكراً لحجزك معنا. سوف نتواصل معك قريباً لتأكيد الموعد.</h5>
+    {% comment %} <a href="{% url 'Book_Service' %}">حجز موعد جديد</a> {% endcomment %}
+</div>
+{% endblock body %}

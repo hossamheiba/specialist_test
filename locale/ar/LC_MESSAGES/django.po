@@ -1,0 +1,1314 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-11 12:54+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+#: .\About_Us\models.py:9 .\About_Us\models.py:23 .\FAQ\models.py:8
+#: .\FAQ\models.py:31 .\Jobs\models.py:9 .\Jobs\models.py:23
+#: .\Media_Center\models.py:7 .\Media_Center\models.py:24
+#: .\Our_Center\models.py:9 .\Our_Center\models.py:23 .\Our_Offers\models.py:7
+#: .\Our_Offers\models.py:25 .\Our_Services\models.py:10
+#: .\Our_Services\models.py:24 .\Our_Services\models.py:82
+#: .\Our_Services\models.py:96 .\Our_Services\models.py:154
+#: .\Our_Services\models.py:168 .\Our_Services\models.py:225
+#: .\Our_Services\models.py:239 .\Our_Services\models.py:298
+#: .\Our_Services\models.py:312 .\Our_Services\models.py:371
+#: .\Our_Services\models.py:385 .\Our_Services\models.py:444
+#: .\Our_Services\models.py:458
+msgid "Image Banner"
+msgstr ""
+
+#: .\About_Us\models.py:11 .\FAQ\models.py:10 .\Jobs\models.py:11
+#: .\Media_Center\models.py:9 .\Our_Center\models.py:11
+#: .\Our_Offers\models.py:9 .\Our_Services\models.py:12
+#: .\Our_Services\models.py:65 .\Our_Services\models.py:84
+#: .\Our_Services\models.py:137 .\Our_Services\models.py:156
+#: .\Our_Services\models.py:209 .\Our_Services\models.py:227
+#: .\Our_Services\models.py:280 .\Our_Services\models.py:300
+#: .\Our_Services\models.py:353 .\Our_Services\models.py:373
+#: .\Our_Services\models.py:426 .\Our_Services\models.py:446
+#: .\Our_Services\models.py:499
+msgid ""
+"Optional - you can upload an image or leave it blank. <br> If no image is "
+"selected, a default image will be displayed."
+msgstr ""
+
+#: .\About_Us\models.py:22 .\FAQ\models.py:30 .\Home\models.py:178
+#: .\Jobs\models.py:22 .\Media_Center\models.py:23 .\Our_Center\models.py:22
+#: .\Our_Offers\models.py:24 .\Our_Services\models.py:23
+#: .\Our_Services\models.py:95 .\Our_Services\models.py:167
+#: .\Our_Services\models.py:238 .\Our_Services\models.py:311
+#: .\Our_Services\models.py:384 .\Our_Services\models.py:457
+#: .\base\models.py:14
+msgid "No Image"
+msgstr ""
+
+#: .\About_Us\models.py:27
+msgid "Maximum 40 characters"
+msgstr ""
+
+#: .\About_Us\models.py:27 .\Home\models.py:7
+msgid "Subtitle"
+msgstr ""
+
+#: .\About_Us\models.py:28 .\About_Us\models.py:30 .\About_Us\models.py:32
+#: .\FAQ\models.py:14 .\Home\models.py:8 .\Home\models.py:41
+#: .\Jobs\models.py:25 .\Our_Center\models.py:25 .\Our_Services\models.py:26
+#: .\Our_Services\models.py:36 .\Our_Services\models.py:98
+#: .\Our_Services\models.py:108 .\Our_Services\models.py:170
+#: .\Our_Services\models.py:180 .\Our_Services\models.py:241
+#: .\Our_Services\models.py:251 .\Our_Services\models.py:314
+#: .\Our_Services\models.py:324 .\Our_Services\models.py:387
+#: .\Our_Services\models.py:397 .\Our_Services\models.py:460
+#: .\Our_Services\models.py:470
+msgid "Maximum 50 characters"
+msgstr ""
+
+#: .\About_Us\models.py:28
+msgid "Vision Title"
+msgstr ""
+
+#: .\About_Us\models.py:29
+msgid "Vision Text"
+msgstr ""
+
+#: .\About_Us\models.py:30
+msgid "Goals Title"
+msgstr ""
+
+#: .\About_Us\models.py:31
+msgid "Goals List (each goal in a line)"
+msgstr ""
+
+#: .\About_Us\models.py:32
+msgid "Why Us Title"
+msgstr ""
+
+#: .\About_Us\models.py:33
+msgid "Why Us Points (each point in a line)"
+msgstr ""
+
+#: .\About_Us\models.py:34
+msgid "Main Image"
+msgstr ""
+
+#: .\About_Us\models.py:35
+msgid "second_image"
+msgstr ""
+
+#: .\About_Us\models.py:38
+msgid "About Section"
+msgstr ""
+
+#: .\About_Us\models.py:39
+msgid "About Sections"
+msgstr ""
+
+#: .\About_Us\models.py:42
+msgid "New About Section"
+msgstr ""
+
+#: .\About_Us\templates\About_Us.html:14
+msgid "Section About Us"
+msgstr ""
+
+#: .\About_Us\templates\About_Us.html:17
+#: .\Book_Service\templates\appointment_form.html:14
+#: .\FAQ\templates\FAQ.html:15 .\Jobs\templates\Jobs.html:16
+#: .\Our_Services\templates\Bodywork_and_painting.html:14
+#: .\Our_Services\templates\CarProgramming.html:15
+#: .\Our_Services\templates\Electricity.html:16
+#: .\Our_Services\templates\Mechanics.html:16
+#: .\Our_Services\templates\Roadside_Assistance.html:16
+#: .\Our_Services\templates\SportsSuspension.html:16
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:16
+msgid "Home"
+msgstr ""
+
+#: .\About_Us\templates\About_Us.html:19 .\base\templates\base.html:97
+#: .\base\templates\base.html:266 .\base\templates\base.html:429
+msgid "About Us"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:12
+#: .\FAQ\templates\FAQ.html:13
+msgid "Frequently Asked Questions Section"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:15
+#: .\FAQ\templates\FAQ.html:16 .\FAQ\templates\FAQ.html:56
+#: .\Home\templates\Home.html:341
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:46
+#: .\Book_Service\templates\appointment_form.html:160
+msgid "Book an appointment"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:49
+msgid "Flatbed truck request"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:61
+#: .\Home\templates\Home.html:34 .\Our_Center\templates\Our_Center.html:44
+#: .\Our_Offers\templates\Offers.html:43
+msgid "Book a service now"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:82
+#: .\Jobs\templates\Jobs.html:71
+msgid "Name"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:87 .\Home\models.py:9
+#: .\Jobs\templates\Jobs.html:83
+msgid "Phone Number"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:92
+#: .\Book_Service\templates\appointment_form.html:273
+#: .\Contact_Us\templates\Contact_Us.html:61 .\Jobs\templates\Jobs.html:77
+#: .\base\templates\base.html:413
+msgid "Email"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:98
+msgid "Car Brand"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:108
+msgid "Car Model"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:118
+msgid "Engine Type"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:128
+msgid "manufacturing year"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:138
+msgid "Select date"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:148
+msgid "Select Time"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:157
+msgid "Notes"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:267
+#: .\Contact_Us\templates\Contact_Us.html:40 .\Our_Center\models.py:49
+#: .\Our_Center\models.py:70
+msgid "Address"
+msgstr ""
+
+#: .\Book_Service\templates\appointment_form.html:270
+#: .\Contact_Us\templates\Contact_Us.html:49 .\base\templates\base.html:410
+msgid "Phone"
+msgstr ""
+
+#: .\Contact_Us\models.py:7
+msgid "address"
+msgstr ""
+
+#: .\Contact_Us\models.py:8
+msgid "phone"
+msgstr ""
+
+#: .\Contact_Us\models.py:9
+msgid "email"
+msgstr ""
+
+#: .\Contact_Us\models.py:15 .\Contact_Us\models.py:16
+#: .\base\templates\base.html:163 .\base\templates\base.html:333
+#: .\base\templates\base.html:436
+msgid "Contact Us"
+msgstr ""
+
+#: .\FAQ\models.py:14
+msgid "Section Title"
+msgstr ""
+
+#: .\FAQ\models.py:15 .\Home\models.py:42 .\Home\models.py:90
+#: .\Home\models.py:154 .\Home\models.py:220 .\Our_Center\models.py:67
+#: .\Our_Offers\models.py:15
+msgid "Description"
+msgstr ""
+
+#: .\FAQ\models.py:15 .\Our_Center\models.py:26 .\Our_Services\models.py:27
+#: .\Our_Services\models.py:99 .\Our_Services\models.py:171
+#: .\Our_Services\models.py:242 .\Our_Services\models.py:315
+#: .\Our_Services\models.py:388 .\Our_Services\models.py:461
+msgid "Description of the first section"
+msgstr ""
+
+#: .\FAQ\models.py:17 .\Jobs\models.py:27 .\Our_Center\models.py:28
+#: .\Our_Services\models.py:29 .\Our_Services\models.py:101
+#: .\Our_Services\models.py:173 .\Our_Services\models.py:244
+#: .\Our_Services\models.py:317 .\Our_Services\models.py:390
+#: .\Our_Services\models.py:463
+msgid "First Section Image"
+msgstr ""
+
+#: .\FAQ\models.py:21 .\Our_Center\models.py:32 .\Our_Services\models.py:105
+#: .\Our_Services\models.py:115 .\Our_Services\models.py:177
+#: .\Our_Services\models.py:187 .\Our_Services\models.py:248
+#: .\Our_Services\models.py:258 .\Our_Services\models.py:321
+#: .\Our_Services\models.py:331 .\Our_Services\models.py:394
+#: .\Our_Services\models.py:404 .\Our_Services\models.py:467
+#: .\Our_Services\models.py:477
+msgid "Optional - recommended to use an image with a transparent background."
+msgstr ""
+
+#: .\FAQ\models.py:34 .\Home\templates\Home.html:84
+#: .\Home\templates\Home.html:469 .\Home\templates\Home.html:480
+#: .\Home\templates\Home.html:508 .\Jobs\models.py:36
+#: .\Our_Services\models.py:47 .\Our_Services\models.py:119
+#: .\Our_Services\models.py:191 .\Our_Services\models.py:262
+#: .\Our_Services\models.py:335 .\Our_Services\models.py:408
+#: .\Our_Services\models.py:481
+msgid "No Title"
+msgstr ""
+
+#: .\FAQ\models.py:37 .\Home\models.py:190
+msgid "FAQ Section"
+msgstr ""
+
+#: .\FAQ\models.py:38
+msgid "FAQ Sections"
+msgstr ""
+
+#: .\FAQ\models.py:49 .\Home\models.py:191
+msgid "Question"
+msgstr ""
+
+#: .\FAQ\models.py:50 .\Home\models.py:192
+msgid "Answer"
+msgstr ""
+
+#: .\FAQ\models.py:53
+msgid "No Question Provided"
+msgstr ""
+
+#: .\FAQ\models.py:56 .\base\templates\base.html:154
+#: .\base\templates\base.html:324 .\base\templates\base.html:433
+msgid "FAQ"
+msgstr ""
+
+#: .\FAQ\models.py:57
+msgid "FAQs"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:38
+#: .\Our_Services\templates\Bodywork_and_painting.html:40
+#: .\Our_Services\templates\Bodywork_and_painting.html:61
+#: .\Our_Services\templates\CarProgramming.html:44
+#: .\Our_Services\templates\CarProgramming.html:67
+#: .\Our_Services\templates\Electricity.html:45
+#: .\Our_Services\templates\Electricity.html:68
+#: .\Our_Services\templates\Mechanics.html:45
+#: .\Our_Services\templates\Mechanics.html:68
+#: .\Our_Services\templates\Roadside_Assistance.html:45
+#: .\Our_Services\templates\Roadside_Assistance.html:68
+#: .\Our_Services\templates\SportsSuspension.html:45
+#: .\Our_Services\templates\SportsSuspension.html:68
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:45
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:68
+msgid "Title not available"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:39 .\Home\templates\Home.html:315
+#: .\Our_Services\templates\Bodywork_and_painting.html:41
+#: .\Our_Services\templates\Bodywork_and_painting.html:64
+#: .\Our_Services\templates\CarProgramming.html:45
+#: .\Our_Services\templates\CarProgramming.html:70
+#: .\Our_Services\templates\Electricity.html:46
+#: .\Our_Services\templates\Electricity.html:71
+#: .\Our_Services\templates\Mechanics.html:46
+#: .\Our_Services\templates\Mechanics.html:71
+#: .\Our_Services\templates\Roadside_Assistance.html:46
+#: .\Our_Services\templates\Roadside_Assistance.html:71
+#: .\Our_Services\templates\SportsSuspension.html:46
+#: .\Our_Services\templates\SportsSuspension.html:71
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:46
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:71
+msgid "Description not available"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:40
+msgid "Book service now"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:67
+msgid "Question not available"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:73
+msgid "Answer not available"
+msgstr ""
+
+#: .\FAQ\templates\FAQ.html:80
+msgid "Frequently asked questions are not available at the moment."
+msgstr ""
+
+#: .\Home\models.py:7
+msgid "Maximum 30 characters"
+msgstr ""
+
+#: .\Home\models.py:8 .\Home\models.py:41 .\Jobs\models.py:25
+#: .\Our_Center\models.py:66 .\base\templates\base.html:407
+msgid "Title"
+msgstr ""
+
+#: .\Home\models.py:10
+msgid "Video Link"
+msgstr ""
+
+#: .\Home\models.py:13 .\Home\models.py:45 .\Home\models.py:72
+#: .\Home\models.py:85 .\Home\models.py:98 .\Home\models.py:111
+#: .\Home\models.py:136 .\Home\models.py:149 .\Home\models.py:162
+#: .\Home\models.py:186 .\Home\models.py:199 .\Home\models.py:214
+#: .\Home\models.py:227 .\Home\models.py:241 .\Home\models.py:252
+#: .\Media_Center\models.py:32 .\Media_Center\models.py:46
+#: .\Our_Offers\models.py:33 .\Our_Offers\models.py:47
+#: .\Our_Offers\models.py:60 .\Our_Offers\models.py:89
+msgid "There Is No Title"
+msgstr ""
+
+#: .\Home\models.py:16
+msgid "1 - Header"
+msgstr ""
+
+#: .\Home\models.py:17
+msgid "1 - Headers"
+msgstr ""
+
+#: .\Home\models.py:23 .\Home\models.py:34
+msgid "Background Image"
+msgstr ""
+
+#: .\Home\models.py:25
+msgid "Optional - If no image is uploaded, a default image will be used."
+msgstr ""
+
+#: .\Home\models.py:31
+msgid "No Background Image"
+msgstr ""
+
+#: .\Home\models.py:35
+msgid "Background Images"
+msgstr ""
+
+#: .\Home\models.py:40
+msgid "Icon or Image"
+msgstr ""
+
+#: .\Home\models.py:42
+msgid "Maximum 100 characters"
+msgstr ""
+
+#: .\Home\models.py:48
+msgid "Feature Item"
+msgstr ""
+
+#: .\Home\models.py:49
+msgid "Feature Items"
+msgstr ""
+
+#: .\Home\models.py:53 .\Home\models.py:77 .\Home\models.py:103
+#: .\Home\models.py:141 .\Home\models.py:168 .\Home\models.py:206
+#: .\Home\models.py:233
+msgid "subtitle"
+msgstr ""
+
+#: .\Home\models.py:53 .\Home\models.py:60 .\Home\models.py:64
+#: .\Home\models.py:78 .\Home\models.py:89 .\Home\models.py:103
+#: .\Home\models.py:104 .\Home\models.py:142 .\Home\models.py:153
+#: .\Home\models.py:169 .\Home\models.py:207 .\Home\models.py:219
+#: .\Home\models.py:234 .\Media_Center\models.py:13 .\Media_Center\models.py:54
+#: .\Our_Offers\models.py:14 .\Our_Offers\models.py:53
+msgid "Maximum characters 50"
+msgstr ""
+
+#: .\Home\models.py:54 .\Home\models.py:78 .\Home\models.py:89
+#: .\Home\models.py:104 .\Home\models.py:128 .\Home\models.py:142
+#: .\Home\models.py:153 .\Home\models.py:169 .\Home\models.py:207
+#: .\Home\models.py:219 .\Home\models.py:234 .\Media_Center\models.py:13
+#: .\Media_Center\models.py:54 .\Media_Center\models.py:67
+#: .\Our_Offers\models.py:14 .\Our_Offers\models.py:53
+#: .\Our_Offers\models.py:77
+msgid "title"
+msgstr ""
+
+#: .\Home\models.py:54
+msgid "Maximum characters 40"
+msgstr ""
+
+#: .\Home\models.py:55
+msgid "description"
+msgstr ""
+
+#: .\Home\models.py:55 .\Home\models.py:90 .\Our_Offers\models.py:15
+msgid "Maximum characters 1000"
+msgstr ""
+
+#: .\Home\models.py:56
+msgid "image_1"
+msgstr ""
+
+#: .\Home\models.py:57
+msgid "image_2"
+msgstr ""
+
+#: .\Home\models.py:59
+msgid "counter_value"
+msgstr ""
+
+#: .\Home\models.py:60
+msgid "counter_label"
+msgstr ""
+
+#: .\Home\models.py:61
+msgid "counter_icon"
+msgstr ""
+
+#: .\Home\models.py:63
+msgid "experience_years"
+msgstr ""
+
+#: .\Home\models.py:64
+msgid "experience_label"
+msgstr ""
+
+#: .\Home\models.py:65
+msgid "experience_icon"
+msgstr ""
+
+#: .\Home\models.py:68
+msgid "2 - About Section"
+msgstr ""
+
+#: .\Home\models.py:69
+msgid "2 - About Sections"
+msgstr ""
+
+#: .\Home\models.py:77 .\Home\models.py:128 .\Home\models.py:141
+#: .\Home\models.py:168 .\Home\models.py:206 .\Home\models.py:233
+#: .\Media_Center\models.py:67 .\Our_Offers\models.py:77
+msgid "Maximum characters 30"
+msgstr ""
+
+#: .\Home\models.py:81
+msgid "3 - Work Section"
+msgstr ""
+
+#: .\Home\models.py:82
+msgid "3 - Work Sections"
+msgstr ""
+
+#: .\Home\models.py:91 .\Home\models.py:218 .\base\models.py:20
+msgid "Icon"
+msgstr ""
+
+#: .\Home\models.py:94
+msgid "Work Card"
+msgstr ""
+
+#: .\Home\models.py:95
+msgid "Work Cards"
+msgstr ""
+
+#: .\Home\models.py:107
+msgid "4 - Service Section"
+msgstr ""
+
+#: .\Home\models.py:108
+msgid "4 - Service Sections"
+msgstr ""
+
+#: .\Home\models.py:116 .\Our_Offers\models.py:66
+#: .\Our_Services\templates\Mechanics.html:19 .\base\templates\base.html:112
+#: .\base\templates\base.html:283 .\base\templates\base.html:449
+msgid "Mechanics"
+msgstr ""
+
+#: .\Home\models.py:117 .\Our_Offers\models.py:67 .\Our_Services\models.py:132
+#: .\Our_Services\templates\Electricity.html:19 .\base\templates\base.html:113
+#: .\base\templates\base.html:284 .\base\templates\base.html:450
+msgid "Electricity"
+msgstr ""
+
+#: .\Home\models.py:118 .\Our_Services\templates\Bodywork_and_painting.html:17
+msgid "Bodywork and Painting"
+msgstr ""
+
+#: .\Home\models.py:119
+msgid "Thermal and Sound Insulation"
+msgstr ""
+
+#: .\Home\models.py:120 .\Our_Services\templates\CarProgramming.html:18
+#: .\base\templates\base.html:116 .\base\templates\base.html:287
+#: .\base\templates\base.html:453
+msgid "Car Programming"
+msgstr ""
+
+#: .\Home\models.py:121
+msgid "Sports Suspension"
+msgstr ""
+
+#: .\Home\models.py:122 .\Our_Services\templates\Roadside_Assistance.html:19
+#: .\base\templates\base.html:118 .\base\templates\base.html:289
+#: .\base\templates\base.html:455
+msgid "Roadside Assistance"
+msgstr ""
+
+#: .\Home\models.py:126 .\Media_Center\models.py:66 .\Our_Offers\models.py:76
+msgid "background_card"
+msgstr ""
+
+#: .\Home\models.py:132
+msgid "Service Card"
+msgstr ""
+
+#: .\Home\models.py:133
+msgid "Service Cards"
+msgstr ""
+
+#: .\Home\models.py:145 .\Home\models.py:146
+msgid "5 - Slider Section"
+msgstr ""
+
+#: .\Home\models.py:154 .\Home\models.py:191 .\Home\models.py:220
+msgid "Maximum characters 500"
+msgstr ""
+
+#: .\Home\models.py:155 .\Home\models.py:245 .\Home\templates\Home.html:461
+#: .\Home\templates\Home.html:462 .\Media_Center\models.py:37
+#: .\Our_Offers\models.py:38
+msgid "image"
+msgstr ""
+
+#: .\Home\models.py:158
+msgid "Slider Card"
+msgstr ""
+
+#: .\Home\models.py:159
+msgid "Slider Cards"
+msgstr ""
+
+#: .\Home\models.py:170 .\Home\templates\Home.html:333
+#: .\Our_Center\models.py:71 .\Our_Services\templates\Electricity.html:52
+#: .\Our_Services\templates\Electricity.html:69
+#: .\Our_Services\templates\Electricity.html:86
+#: .\Our_Services\templates\Electricity.html:96
+#: .\Our_Services\templates\Mechanics.html:52
+#: .\Our_Services\templates\Mechanics.html:69
+#: .\Our_Services\templates\Mechanics.html:86
+#: .\Our_Services\templates\Mechanics.html:96
+#: .\Our_Services\templates\Roadside_Assistance.html:52
+#: .\Our_Services\templates\Roadside_Assistance.html:69
+#: .\Our_Services\templates\Roadside_Assistance.html:86
+#: .\Our_Services\templates\Roadside_Assistance.html:96 .\base\models.py:7
+msgid "Image"
+msgstr ""
+
+#: .\Home\models.py:179
+msgid "Image "
+msgstr ""
+
+#: .\Home\models.py:182
+msgid "6 - FAQ Section"
+msgstr ""
+
+#: .\Home\models.py:183
+msgid "6 - FAQ Sections"
+msgstr ""
+
+#: .\Home\models.py:192
+msgid "Maximum characters 5000"
+msgstr ""
+
+#: .\Home\models.py:195
+msgid "FAQ Item"
+msgstr ""
+
+#: .\Home\models.py:196
+msgid "FAQ Items"
+msgstr ""
+
+#: .\Home\models.py:210 .\Home\models.py:211
+msgid "7 - ChooseUs Section"
+msgstr ""
+
+#: .\Home\models.py:223
+msgid "ChooseUs Card"
+msgstr ""
+
+#: .\Home\models.py:224
+msgid "ChooseUs Cards"
+msgstr ""
+
+#: .\Home\models.py:237 .\Home\models.py:238
+msgid "8 - Brands Section"
+msgstr ""
+
+#: .\Home\models.py:248
+msgid "ImageBrand Card"
+msgstr ""
+
+#: .\Home\models.py:249
+msgid "ImageBrand Cards"
+msgstr ""
+
+#: .\Home\templates\Home.html:23
+msgid "Hero Shape"
+msgstr ""
+
+#: .\Home\templates\Home.html:31
+msgid "Default Title"
+msgstr ""
+
+#: .\Home\templates\Home.html:39
+msgid "Phone Icon"
+msgstr ""
+
+#: .\Home\templates\Home.html:42
+msgid "Call Now:"
+msgstr ""
+
+#: .\Home\templates\Home.html:53
+msgid "Company Logo"
+msgstr ""
+
+#: .\Home\templates\Home.html:64 .\Our_Services\views.py:11
+#: .\Our_Services\views.py:25 .\Our_Services\views.py:39
+#: .\Our_Services\views.py:54 .\Our_Services\views.py:71
+#: .\Our_Services\views.py:87 .\Our_Services\views.py:101
+msgid "No data available to display at the moment."
+msgstr ""
+
+#: .\Home\templates\Home.html:85
+msgid "No Description Available"
+msgstr ""
+
+#: .\Home\templates\Home.html:159 .\Home\templates\Home.html:268
+msgid "More"
+msgstr ""
+
+#: .\Home\templates\Home.html:186
+msgid "Default Section Title"
+msgstr ""
+
+#: .\Home\templates\Home.html:222 .\Home\templates\Home.html:224
+#: .\Home\templates\Home.html:286 .\Home\templates\Home.html:287
+#: .\Home\templates\Home.html:314
+msgid "Text not available"
+msgstr ""
+
+#: .\Home\templates\Home.html:247
+msgid "No Title Available"
+msgstr ""
+
+#: .\Home\templates\Home.html:335
+#: .\Our_Services\templates\Bodywork_and_painting.html:49
+#: .\Our_Services\templates\CarProgramming.html:53
+#: .\Our_Services\templates\Electricity.html:54
+#: .\Our_Services\templates\Mechanics.html:54
+#: .\Our_Services\templates\Roadside_Assistance.html:54
+msgid "Default Image"
+msgstr ""
+
+#: .\Home\templates\Home.html:342
+msgid "Optional Title"
+msgstr ""
+
+#: .\Home\templates\Home.html:358 .\Home\templates\Home.html:363
+msgid "No Answer Available"
+msgstr ""
+
+#: .\Home\templates\Home.html:369
+msgid "No Frequently Asked Questions Available"
+msgstr ""
+
+#: .\Home\templates\Home.html:468
+msgid "Why Choose Us"
+msgstr ""
+
+#: .\Home\templates\Home.html:482
+msgid "Default Icon"
+msgstr ""
+
+#: .\Home\templates\Home.html:487
+msgid "No Title Specified"
+msgstr ""
+
+#: .\Home\templates\Home.html:488
+msgid "No Details Available."
+msgstr ""
+
+#: .\Home\templates\Home.html:494
+msgid "No Information Available"
+msgstr ""
+
+#: .\Home\templates\Home.html:507
+msgid "No Subtitle"
+msgstr ""
+
+#: .\Home\templates\Home.html:520
+msgid "Brand Image"
+msgstr ""
+
+#: .\Home\templates\Home.html:522
+msgid "Default Brand Image"
+msgstr ""
+
+#: .\Home\templates\Home.html:528
+msgid "No Images Available Currently"
+msgstr ""
+
+#: .\Jobs\models.py:40 .\Jobs\models.py:41
+msgid "Job Info"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:13
+msgid "Career Section"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:18 .\base\templates\base.html:160
+#: .\base\templates\base.html:330 .\base\templates\base.html:435
+msgid "Career"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:60 .\accounts\templates\submit_review.html:10
+msgid "Thank you!"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:60 .\accounts\templates\submit_review.html:10
+msgid "Error"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:89
+msgid "Job Title"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:95
+msgid "Experience Years"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:100
+msgid "Resume"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:107
+msgid "Portfolio (Optional)"
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:115
+msgid "A brief about yourself.."
+msgstr ""
+
+#: .\Jobs\templates\Jobs.html:119
+msgid "Send"
+msgstr ""
+
+#: .\Jobs\views.py:21
+msgid "Please fill in all required fields."
+msgstr ""
+
+#: .\Jobs\views.py:35
+msgid "Your application has been submitted successfully!"
+msgstr ""
+
+#: .\Media_Center\models.py:28
+msgid "news Slider"
+msgstr ""
+
+#: .\Media_Center\models.py:29
+msgid " news  Selider"
+msgstr ""
+
+#: .\Media_Center\models.py:42 .\Media_Center\models.py:43
+msgid "news Selider"
+msgstr ""
+
+#: .\Media_Center\models.py:57
+msgid "news Section"
+msgstr ""
+
+#: .\Media_Center\models.py:58
+msgid " news Sections"
+msgstr ""
+
+#: .\Media_Center\models.py:68
+msgid "content"
+msgstr ""
+
+#: .\Media_Center\models.py:68 .\Our_Offers\models.py:78
+#: .\Our_Offers\models.py:79
+msgid "Maximum characters 100"
+msgstr ""
+
+#: .\Media_Center\models.py:75
+msgid "news Card"
+msgstr ""
+
+#: .\Media_Center\models.py:76
+msgid "news Cards"
+msgstr ""
+
+#: .\Our_Center\models.py:25 .\Our_Services\models.py:26
+#: .\Our_Services\models.py:98 .\Our_Services\models.py:170
+#: .\Our_Services\models.py:241 .\Our_Services\models.py:314
+#: .\Our_Services\models.py:387 .\Our_Services\models.py:460
+msgid "First Section Title"
+msgstr ""
+
+#: .\Our_Center\models.py:26 .\Our_Services\models.py:27
+#: .\Our_Services\models.py:99 .\Our_Services\models.py:171
+#: .\Our_Services\models.py:242 .\Our_Services\models.py:315
+#: .\Our_Services\models.py:388 .\Our_Services\models.py:461
+msgid "First Section Description"
+msgstr ""
+
+#: .\Our_Center\models.py:36
+msgid "OurCenter Section"
+msgstr ""
+
+#: .\Our_Center\models.py:37
+msgid "OurCenter Sections"
+msgstr ""
+
+#: .\Our_Center\models.py:40 .\Our_Center\models.py:79
+msgid "Unnamed Location"
+msgstr ""
+
+#: .\Our_Center\models.py:48
+msgid "Center Title"
+msgstr ""
+
+#: .\Our_Center\models.py:50
+msgid "Working Hours"
+msgstr ""
+
+#: .\Our_Center\models.py:51
+msgid "Working Days"
+msgstr ""
+
+#: .\Our_Center\models.py:52
+msgid "Friday Status"
+msgstr ""
+
+#: .\Our_Center\models.py:55
+msgid "Information Our Center"
+msgstr ""
+
+#: .\Our_Center\models.py:56
+msgid "Information Our Center "
+msgstr ""
+
+#: .\Our_Center\models.py:59
+msgid "Center without Title"
+msgstr ""
+
+#: .\Our_Center\models.py:65
+msgid "map"
+msgstr ""
+
+#: .\Our_Center\models.py:68
+msgid "Latitude"
+msgstr ""
+
+#: .\Our_Center\models.py:69
+msgid "Longitude"
+msgstr ""
+
+#: .\Our_Center\models.py:72
+msgid "Google Maps URL"
+msgstr ""
+
+#: .\Our_Center\models.py:75
+msgid "Map Location"
+msgstr ""
+
+#: .\Our_Center\models.py:76
+msgid "Map Locations"
+msgstr ""
+
+#: .\Our_Offers\models.py:29
+msgid "offer Slider"
+msgstr ""
+
+#: .\Our_Offers\models.py:30
+msgid " offer  Selider"
+msgstr ""
+
+#: .\Our_Offers\models.py:43 .\Our_Offers\models.py:44
+msgid "offer Selider"
+msgstr ""
+
+#: .\Our_Offers\models.py:56
+msgid "offer Section"
+msgstr ""
+
+#: .\Our_Offers\models.py:57
+msgid " Sections"
+msgstr ""
+
+#: .\Our_Offers\models.py:68
+msgid "Bodywork_And_Pinting"
+msgstr ""
+
+#: .\Our_Offers\models.py:69
+msgid "Thermal_And_Soundin_Sulation"
+msgstr ""
+
+#: .\Our_Offers\models.py:70
+msgid "Car_Programming"
+msgstr ""
+
+#: .\Our_Offers\models.py:71
+msgid "Sports_Suspension"
+msgstr ""
+
+#: .\Our_Offers\models.py:72
+msgid "Roadside_Assistance"
+msgstr ""
+
+#: .\Our_Offers\models.py:78
+msgid "content_one"
+msgstr ""
+
+#: .\Our_Offers\models.py:79
+msgid "content_tow"
+msgstr ""
+
+#: .\Our_Offers\models.py:85
+msgid "offer Card"
+msgstr ""
+
+#: .\Our_Offers\models.py:86
+msgid "offer Cards"
+msgstr ""
+
+#: .\Our_Services\models.py:33 .\Our_Services\models.py:43
+msgid "recommended to use an image with a transparent background."
+msgstr ""
+
+#: .\Our_Services\models.py:36 .\Our_Services\models.py:108
+#: .\Our_Services\models.py:180 .\Our_Services\models.py:251
+#: .\Our_Services\models.py:324 .\Our_Services\models.py:397
+#: .\Our_Services\models.py:470
+msgid "Second Section Title"
+msgstr ""
+
+#: .\Our_Services\models.py:37 .\Our_Services\models.py:109
+#: .\Our_Services\models.py:181 .\Our_Services\models.py:252
+#: .\Our_Services\models.py:325 .\Our_Services\models.py:398
+#: .\Our_Services\models.py:471
+msgid "Second Section Description"
+msgstr ""
+
+#: .\Our_Services\models.py:37 .\Our_Services\models.py:109
+#: .\Our_Services\models.py:181 .\Our_Services\models.py:252
+#: .\Our_Services\models.py:325 .\Our_Services\models.py:398
+#: .\Our_Services\models.py:471
+msgid "Description of the second section"
+msgstr ""
+
+#: .\Our_Services\models.py:39 .\Our_Services\models.py:111
+#: .\Our_Services\models.py:183 .\Our_Services\models.py:254
+#: .\Our_Services\models.py:327 .\Our_Services\models.py:400
+#: .\Our_Services\models.py:473
+msgid "Second Section Image"
+msgstr ""
+
+#: .\Our_Services\models.py:51
+msgid "1 - Mechanic"
+msgstr ""
+
+#: .\Our_Services\models.py:52
+msgid "1 - Mechanics"
+msgstr ""
+
+#: .\Our_Services\models.py:60
+msgid "Mechanic"
+msgstr ""
+
+#: .\Our_Services\models.py:63 .\Our_Services\models.py:135
+#: .\Our_Services\models.py:207 .\Our_Services\models.py:278
+#: .\Our_Services\models.py:351 .\Our_Services\models.py:424
+#: .\Our_Services\models.py:497
+msgid "Slider Image"
+msgstr ""
+
+#: .\Our_Services\models.py:74
+msgid "Mechanic Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:75
+msgid "Mechanic Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:123 .\Our_Services\models.py:124
+msgid "2 - Electricity"
+msgstr ""
+
+#: .\Our_Services\models.py:146
+msgid "electricity Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:147
+msgid "electricity Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:195 .\Our_Services\models.py:196
+msgid "3 - BodyWork And Painting"
+msgstr ""
+
+#: .\Our_Services\models.py:204
+msgid "BodyworkAndPainting"
+msgstr ""
+
+#: .\Our_Services\models.py:218
+msgid "bodyworkandpainting Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:219
+msgid "bodyworkandpainting Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:266
+msgid "4 - Thermal And Sound Insulation"
+msgstr ""
+
+#: .\Our_Services\models.py:267
+msgid "4 - Thermal And Sound Insulations"
+msgstr ""
+
+#: .\Our_Services\models.py:275
+msgid "thermalandsoundinsulation"
+msgstr ""
+
+#: .\Our_Services\models.py:289
+msgid "ThermalAndSoundInsulation Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:290
+msgid "ThermalAndSoundInsulation Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:339 .\Our_Services\models.py:340
+msgid "5 - Car Programming"
+msgstr ""
+
+#: .\Our_Services\models.py:348
+msgid "carprogramming"
+msgstr ""
+
+#: .\Our_Services\models.py:362
+msgid "CarProgrammingSlider Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:363
+msgid "CarProgrammingSlider Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:412 .\Our_Services\models.py:413
+msgid "6 - Sports Suspension"
+msgstr ""
+
+#: .\Our_Services\models.py:421
+msgid "sportssuspension"
+msgstr ""
+
+#: .\Our_Services\models.py:435
+msgid "SportsSuspensionSlider Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:436
+msgid "SportsSuspensionSlider Sliders"
+msgstr ""
+
+#: .\Our_Services\models.py:485 .\Our_Services\models.py:486
+msgid "7 - Roadside Assistance"
+msgstr ""
+
+#: .\Our_Services\models.py:494
+msgid "roadsideassistance"
+msgstr ""
+
+#: .\Our_Services\models.py:508
+msgid "RoadsideAssistanceSlider Slider"
+msgstr ""
+
+#: .\Our_Services\models.py:509
+msgid "RoadsideAssistanceSlider Sliders"
+msgstr ""
+
+#: .\Our_Services\templates\Bodywork_and_painting.html:11
+msgid "Bodywork and Painting Section"
+msgstr ""
+
+#: .\Our_Services\templates\Bodywork_and_painting.html:42
+#: .\Our_Services\templates\CarProgramming.html:46
+#: .\Our_Services\templates\Electricity.html:47
+#: .\Our_Services\templates\Mechanics.html:47
+#: .\Our_Services\templates\Roadside_Assistance.html:47
+#: .\Our_Services\templates\SportsSuspension.html:47
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:47
+msgid "Book the service now"
+msgstr ""
+
+#: .\Our_Services\templates\Bodywork_and_painting.html:82
+#: .\Our_Services\templates\CarProgramming.html:89
+#: .\Our_Services\templates\Electricity.html:90
+#: .\Our_Services\templates\Mechanics.html:90
+#: .\Our_Services\templates\Roadside_Assistance.html:90
+msgid "Default Slider"
+msgstr ""
+
+#: .\Our_Services\templates\CarProgramming.html:12
+msgid "Car Programming Section"
+msgstr ""
+
+#: .\Our_Services\templates\Electricity.html:13
+msgid "Electrical Section"
+msgstr ""
+
+#: .\Our_Services\templates\Mechanics.html:13
+msgid "Mechanical Section"
+msgstr ""
+
+#: .\Our_Services\templates\Roadside_Assistance.html:13
+msgid "Roadside Assistance Section"
+msgstr ""
+
+#: .\Our_Services\templates\SportsSuspension.html:13
+msgid "Sports Suspension Department"
+msgstr ""
+
+#: .\Our_Services\templates\SportsSuspension.html:19
+#: .\base\templates\base.html:117 .\base\templates\base.html:288
+#: .\base\templates\base.html:454
+msgid "Sports Suspension "
+msgstr ""
+
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:13
+msgid "Thermal And Sound Insulation Section"
+msgstr ""
+
+#: .\Our_Services\templates\Thermal_And_Soundin_Sulation.html:19
+#: .\base\templates\base.html:115 .\base\templates\base.html:286
+#: .\base\templates\base.html:452
+msgid "Thermal And Sound Insulation"
+msgstr ""
+
+#: .\accounts\templates\submit_review.html:10
+msgid "Warning!"
+msgstr ""
+
+#: .\base\models.py:10 .\base\models.py:11 .\base\templates\base.html:126
+#: .\base\templates\base.html:297
+msgid "Photo Gallery"
+msgstr ""
+
+#: .\base\models.py:23
+msgid "Payment Method"
+msgstr ""
+
+#: .\base\models.py:24
+msgid "Payment Methods"
+msgstr ""
+
+#: .\base\models.py:27
+msgid "No icon"
+msgstr ""
+
+#: .\base\templates\base.html:87
+msgid "البحث عن ......"
+msgstr ""
+
+#: .\base\templates\base.html:94 .\base\templates\base.html:206
+msgid "login"
+msgstr ""
+
+#: .\base\templates\base.html:100 .\base\templates\base.html:271
+msgid "Company Profile"
+msgstr ""
+
+#: .\base\templates\base.html:102 .\base\templates\base.html:273
+#: .\base\templates\base.html:430
+msgid "Profile"
+msgstr ""
+
+#: .\base\templates\base.html:107 .\base\templates\base.html:278
+#: .\base\templates\base.html:431
+msgid "Our Center"
+msgstr ""
+
+#: .\base\templates\base.html:110 .\base\templates\base.html:281
+msgid "Our Services"
+msgstr ""
+
+#: .\base\templates\base.html:114 .\base\templates\base.html:285
+#: .\base\templates\base.html:451
+msgid "Bodywork And Painting "
+msgstr ""
+
+#: .\base\templates\base.html:122 .\base\templates\base.html:293
+msgid "Media Center"
+msgstr ""
+
+#: .\base\templates\base.html:124 .\base\templates\base.html:295
+msgid "News"
+msgstr ""
+
+#: .\base\templates\base.html:151 .\base\templates\base.html:321
+#: .\base\templates\base.html:434
+msgid "Our Offers"
+msgstr ""
+
+#: .\base\templates\base.html:157 .\base\templates\base.html:327
+#: .\base\templates\base.html:432
+msgid "Book Service"
+msgstr ""
+
+#: .\base\templates\base.html:216
+msgid "Available payment methods"
+msgstr ""
+
+#: .\base\templates\base.html:240
+msgid "Need help"
+msgstr ""
+
+#: .\base\templates\base.html:378
+msgid "Call on demand "
+msgstr ""
+
+#: .\base\templates\base.html:426
+msgid "Quick Links"
+msgstr ""
+
+#: .\base\templates\base.html:445
+msgid "Main sections"
+msgstr ""

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+<style>
+
+
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: slideFromTop 1s ease-out;
+}
+
+.profile-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.profile-form {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.profile-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    animation: fadeInImage 1s ease-in-out;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #f26b3c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-image:hover {
+    transform: scale(1.1); /* تكبير الصورة عند التمرير */
+}
+
+.submit-button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #f26b3c;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover {
+    background-color: #dc3545;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:active {
+    transform: scale(0.95);
+}
+
+/* متجاوب */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-title {
+        font-size: 22px;
+    }
+
+    .submit-button {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
+
+/* التأثيرات */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromTop {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>
+
+<div class="profile-container {% if get_language_bidi %}rtl{% endif %}">
+    <div class="profile-card">
+        <h1 class="profile-title"></h1>
+        <form method="post" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-button">{% trans "Save Changes" %}</button>
+        </form>
+        <div class="profile-image-container">
+            {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="{% trans 'Profile Image' %}" class="profile-image">
+            {% else %}
+                <p>{% trans "No profile image uploaded." %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

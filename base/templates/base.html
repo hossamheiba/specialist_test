@@ -1,0 +1,593 @@
+{% load static %} 
+{% load i18n %}
+
+<!DOCTYPE html>
+{% comment %} <html lang="{{ LANGUAGE_CODE }}"dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}"> {% endcomment %}
+<html lang="{{ request.LANGUAGE_CODE }}" dir="{% if request.LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>المتخصصون - صيانة السيارات وحجز مواعيد التصليح</title>
+    <meta name="description" content="شركة المتخصصون تقدم خدمات صيانة السيارات وحجز مواعيد للصيانة والتصليح بأعلى جودة وبأسعار تنافسية. احجز موعدك الآن بسهولة.">
+    <meta name="keywords" content="صيانة السيارات, حجز مواعيد, تصليح السيارات, ورشة صيانة, خدمات سيارات, ميكانيكي سيارات, المتخصصون">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/webp" sizes="32x32" href="assets/img/شعار-شركة-المتخصصون-المعتمد.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "المتخصصون لصيانة السيارات",
+      "description": "نقدم خدمات صيانة السيارات وحجز مواعيد التصليح بأعلى جودة.",
+      "image": "assets/img/شعار-شركة-المتخصصون-المعتمد.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "الدمام",
+        "addressCountry": "SA"
+      },
+      "telephone": "+966123456789",
+      "url": "https://example.com"
+    }
+    </script>
+    
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+<style>
+    form {
+    display: inline;
+}
+
+form button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="loader">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="subline"></div>
+                <div class="subline"></div>
+                <div class="subline"></div>
+                <div class="subline"></div>
+                <div class="subline"></div>
+                <div class="loader-circle-1">
+                    <div class="loader-circle-2"></div>
+                </div>
+                <div class="needle"></div>
+                <div class="loading">Loading</div>
+            </div>
+        </div>
+    </div>
+    <!--==============================
+    Mobile Menu
+    ============================== -->
+    <div class="mobile-menu-wrapper">
+        <div class="mobile-menu-area">
+            <div class="mobile-logo">
+                <a href="#">
+                    <img style="width: 100px;" src="{% static 'assets/img/شعار-شركة-المتخصصون-المعتمد.png' %}"
+                        alt="Fixturbo"></a>
+                <button class="menu-toggle"><i class="fa fa-times"></i></button>
+            </div>
+            {% comment %} <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
+                <button class="icon-btn" type="button" id="search-icon"><i class="fas fa-search"></i></button>
+                <input class="form-control" type="text" name="query" placeholder="{% trans 'البحث عن ......' %}" id="search-input">
+            </form> {% endcomment %}
+
+            <div class="mobile-menu">
+                <ul>
+                    
+                    <li style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'profile' %}" class="btn text-white" style="padding: 10px 17px; width: 100%; text-align: center;">
+                                <i class="fas fa-user"></i> {% trans "Profile" %}
+                            </a>
+                            <a href="{% url 'Book_Service:appointments_view' %}" class="btn text-white" style="padding: 10px 17px; width: 100%; text-align: center;">
+                                <i class="fas fa-user"></i> {% trans "appointments" %}
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn text-white" style="padding: 10px 17px; width: 100%; text-align: center;">
+                                <i class="fas fa-sign-in-alt icon-large "></i> {% trans "Login" %}
+                            </a>
+                            <a href="{% url 'register' %}" class="btn text-white" style="padding: 10px 17px; width: 100%; text-align: center;">
+                                <i class="fas fa-sign-in-alt icon-large"></i> {% trans "Register" %}
+                            </a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a href="{% url 'Home' %}"> {% trans 'Home' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'About_Us' %}"> {% trans 'About Us' %}</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#"> {% trans 'Company Profile' %} </a>
+                        <ul class="sub-menu">
+                            <li><a href="assets/img/pdf/الملف التعريفي.pdf" download="الملف التعريفي.pdf">{% trans 'Profile' %}</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'Our_Center' %}">{% trans 'Our Center' %}</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">{% trans 'Our Services' %}</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'Our_Services:mechanics_view' %}">{% trans 'Mechanics' %}</a></li>
+                            <li><a href="{% url 'Our_Services:electricity_view' %}">{% trans 'Electricity' %}</a></li>
+                            <li><a href="{% url 'Our_Services:bodyworkandpainting_view' %}">{% trans 'Bodywork And Painting ' %}</a></li>
+                            <li><a href="{% url 'Our_Services:thermalandsoundinsulation_view' %}"> {% trans 'Thermal And Sound Insulation' %} </a></li>
+                            <li><a href="{% url 'Our_Services:carprogramming_view' %}">{% trans 'Car Programming' %}</a></li>
+                            <li><a href="{% url 'Our_Services:sportssuspension_view' %}">{% trans 'Sports Suspension ' %}</a></li>
+                            <li><a href="{% url 'Our_Services:roadsideassistance_view' %}">{% trans 'Roadside Assistance' %} </a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#"> {% trans 'Media Center' %}</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'Media_Center' %}">{% trans 'News' %} </a></li>
+                            <li class="menu-item-has-children">
+                                <a href="#"> {% trans 'Photo Gallery' %}</a>
+                                <ul class="sub-menu">
+                                    {% for image in images %}
+                                        {% if forloop.counter0|divisibleby:4 %}
+                                        <li>
+                                            <div class="container">
+                                                <div class="row">
+                                        {% endif %}
+                                                    <div class="col-6 col-md-3 mb-3">
+                                                        <img src="{{ image.image.url }}" class="img-fluid border" alt="Image {{ forloop.counter }}"
+                                                        style="width: 50px; height: 40px;">
+                                                    </div>
+                                        {% if forloop.counter|divisibleby:4 or forloop.last %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a href="{% url 'Our_Offers' %}">{% trans 'Our Offers' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'FAQ' %}">{% trans 'FAQ' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Book_Service:book_service' %}">{% trans 'Book Service' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'jobs' %}">{% trans 'Career' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Contact_Us' %}">{% trans 'Contact Us' %}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--==============================
+	Header Area
+    ==============================-->
+    <header class="nav-header header-layout1 ">
+        <div class="header-top">
+            <div class="container">
+                <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">
+                    <div class="col-auto ">
+                        <div class="header-links">
+                            <ul>
+                                <li>
+                                    <i class="fas fa-globe"></i>
+                                    <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        {% if LANGUAGE_CODE == 'ar' %}
+                                            <button type="submit" name="language" value="en" style="background:none; border:none; cursor:pointer;">
+                                                EN
+                                            </button>
+                                        {% else %}
+                                            <button type="submit" name="language" value="ar" style="background:none; border:none; cursor:pointer;">
+                                                AR
+                                            </button>
+                                        {% endif %}
+                                    </form>
+                                </li>
+                                
+                                
+                                
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <div class="header-links">
+                            <ul>
+                            
+                                <li>
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'profile' %}" style="padding: 10px 17px;" class="btn">
+                                            <i class="fas fa-user"></i> {% trans "Profile" %}
+                                        </a>
+                                        <a href="{% url 'Book_Service:appointments_view' %}" style="padding: 10px 17px;" class="btn">
+                                            <i class="fas fa-user"></i> {% trans "appointments" %}
+                                        </a>
+
+                                    {% else %}
+                                        <a href="{% url 'login' %}" style="padding: 10px 17px;" class="btn">
+                                            <i class="fas fa-sign-in-alt icon-large"></i> {% trans "Login" %}
+                                        </a>
+                                        <a href="{% url 'register' %}" style="padding: 10px 17px;" class="btn">
+                                            <i class="fas fa-sign-in-alt icon-large"></i>  {% trans "Register" %}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                                
+                                <li>
+                                    <div class="news-ticker">
+                                        <div class="news-ticker-content">
+                                            <span>
+                                                
+                                                
+                                                {% if payment_methods %}
+                                                {% trans "Available payment methods" %}
+                                                {% else %}
+                                                {% endif %}
+                                                {% for method in payment_methods %}
+                                                    {% if method.icon %}
+                                                        <img style="width: 50px; height: 50px;" src="{{ method.icon.url }}" alt="{{ method.name }}">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="header-links ps-0">
+
+                            <div class="navbar-right-desc">
+                                <div class="icon">
+                                    <img src="{% static 'assets/img/icon/phone-1.svg' %}" alt="img">
+                                </div>
+                                <div class="navbar-right-desc-details">
+                                    <h6 class="title text-white text-center">{% trans "Need help" %} 
+                                    </h6>
+                                    <a class="link text-white" href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="header-navbar-logo">
+                    <a href="{% url 'Home' %} "><img src="{% static 'assets/img/شعار-شركة-المتخصصون-المعتمد.png' %}" style="width: 100px;"
+                            alt="logo" /></a>
+                </div>
+                <div class="container">
+                    <div class="row align-items-center justify-content-lg-start justify-content-between">
+
+                        <div class="col-auto">
+
+                            <nav class="main-menu d-none d-lg-inline-block">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'Home' %}"> {% trans 'Home' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'About_Us' %}"> {% trans 'About Us' %}</a>
+                                    </li>
+
+
+                                    <li class="menu-item-has-children">
+                                        <a href="#"> {% trans 'Company Profile' %} </a>
+                                        <ul class="sub-menu">
+                                            <li><a href="assets/img/pdf/الملف التعريفي.pdf" download="الملف التعريفي.pdf">{% trans 'Profile' %}</a></li>
+                                        </ul>
+                                    </li>
+                
+                                    <li>
+                                        <a href="{% url 'Our_Center' %}">{% trans 'Our Center' %}</a>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">{% trans 'Our Services' %}</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'Our_Services:mechanics_view' %}">{% trans 'Mechanics' %}</a></li>
+                                            <li><a href="{% url 'Our_Services:electricity_view' %}">{% trans 'Electricity' %}</a></li>
+                                            <li><a href="{% url 'Our_Services:bodyworkandpainting_view' %}">{% trans 'Bodywork And Painting ' %}</a></li>
+                                            <li><a href="{% url 'Our_Services:thermalandsoundinsulation_view' %}"> {% trans 'Thermal And Sound Insulation' %} </a></li>
+                                            <li><a href="{% url 'Our_Services:carprogramming_view' %}">{% trans 'Car Programming' %}</a></li>
+                                            <li><a href="{% url 'Our_Services:sportssuspension_view' %}">{% trans 'Sports Suspension ' %}</a></li>
+                                            <li><a href="{% url 'Our_Services:roadsideassistance_view' %}">{% trans 'Roadside Assistance' %} </a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#"> {% trans 'Media Center' %}</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'Media_Center' %}">{% trans 'News' %} </a></li>
+                                            <li class="menu-item-has-children">
+                                                <a href="#"> {% trans 'Photo Gallery' %}</a>
+                                                <ul class="sub-menu">
+                                                    {% for image in images %}
+                                                        {% if forloop.counter0|divisibleby:4 %}
+                                                        <li>
+                                                            <div class="container">
+                                                                <div class="row">
+                                                        {% endif %}
+                                                                    <div class="col-6 col-md-3 mb-3">
+                                                                        <img src="{{ image.image.url }}" class="img-fluid border" alt="Image {{ forloop.counter }}"
+                                                                        style="width: 50px; height: 45px;">
+                                                                    </div>
+                                                        {% if forloop.counter|divisibleby:4 or forloop.last %}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'Our_Offers' %}">{% trans 'Our Offers' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'FAQ' %}">{% trans 'FAQ' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Book_Service:book_service' %}">{% trans 'Book Service' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'jobs' %}">{% trans 'Career' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Contact_Us' %}">{% trans 'Contact Us' %}</a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                            <div class="navbar-right d-inline-flex d-lg-none">
+                                <button type="button" class="menu-toggle icon-btn">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-auto d-xl-none d-block">
+                            <div class="header-logo">
+                                <a href="{% url 'Home' %} "><img style="width: 100px;"
+                                        src="{% static 'assets/img/شعار-شركة-المتخصصون-المعتمد.png' %}" alt="logo" /></a>
+                            </div>
+                        </div>
+                        {% comment %} <div class="col-auto m-auto d-xl-block d-none">
+                            <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
+                                <button class="icon-btn" type="button" id="search-icon"><i class="fas fa-search"></i></button>
+                                <input class="form-control" type="text" name="query" placeholder="{% trans 'البحث عن ......' %}" id="search-input">
+                            </form>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+
+{% block body %}
+    
+{% endblock body %}
+<div class="container">
+    <div class="footer-top-1 bg-theme" style="background-image: url(assets/img/bg/footer-top-bg1-1.png);">
+        <div class="footer-logo">
+            <a href="#"><img style="width: 100px;" src="{% static 'assets/img/output-onlinepngtools.png' %}" alt="Fixturbo"></a>
+        </div>
+        <div class="call-media-wrap">
+            <div class="icon">
+                <img src="{% static 'assets/img/icon/phone-1.svg' %}" alt="img">
+            </div>
+            <div class="media-body">
+                <h6 class="title text-white"> {% trans "Call on demand " %}:</h6>
+                <h4 class="link">
+                    <a class="text-white" href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+                </h4>
+            </div>
+        </div>
+        <div class="social-btn">
+            <a href="https://www.youtube.com/@Specialist-Co"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com/tsem_co"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/specialistcompany?igsh=OWhxbzBuNmltNGx5&utm_source=qr"><i
+                    class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
+<footer class="footer-wrapper footer-layout1" style="background-image: url(assets/img/bg/footer-bg1-1.png);">
+    <div class="portfolio-shape-img_footer shape-mockup d-lg-block d-none">
+        <div class="about-counter-wrap jump-reverse">
+            <img class="w-75" src="{% static 'assets/img/normal/footer.png' %}" alt="img">
+        </div>
+    </div>
+    <div class="container">
+        <div class="widget-area">
+            <div class="row justify-content-between">
+                <div class="col-md-6 col-xl-auto">
+                    <div class="widget widget_nav_menu footer-widget">
+
+                        <div class="col-md-6 col-xl-auto">
+                            <div class="widget footer-widget">
+                                <div class="widget-contact">
+                                    <p style="font-size: 34px; font-weight: bolder;"> {% trans "Title" %} </p>
+                                    <p> {{contact.address}}
+                                    </p>
+                                    <p style="font-size: 34px; font-weight: bolder;"> {% trans "Phone" %} </p>
+                                    <p><a href="tel:0966538870222">0559124999</a></p>
+
+                                    <p style="font-size: 34px; font-weight: bolder;"> {% trans "Email" %} </p>
+                                    <a href="mailto:care@mspco.sa">Care@mspco.sa</a>
+                                    <a href="mailto:Marketing@mspco.sa">Marketing@mspco.sa</a>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-auto">
+                    <div class="widget widget_nav_menu footer-widget">
+                        <h3 class="widget_title">{% trans "Quick Links" %} </h3>
+                        <div class="menu-all-pages-container">
+                            <ul class="menu">
+                                <li><a href="{% url 'About_Us' %}">  {% trans 'About Us' %} </a></li>
+                                <li><a href="assets/img/pdf/الملف التعريفي.pdf" download="الملف التعريفي.pdf"> {% trans "Profile" %}</a></li>
+                                <li><a href="{% url 'Our_Center' %}"> {% trans 'Our Center' %} </a></li>
+                                <li><a href="{% url 'Book_Service:book_service' %}">{% trans 'Book Service' %}</a></li>
+                                <li><a href="{% url 'FAQ' %}">{% trans 'FAQ' %}</a></li>
+                                <li><a href="{% url 'Our_Offers' %}">{% trans 'Our Offers' %}</a></li>
+                                <li><a href="{% url 'jobs' %}">{% trans 'Career' %}</a></li>
+                                <li><a href="{% url 'Contact_Us' %}">{% trans 'Contact Us' %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 col-xl-auto">
+                    <div class="widget widget_nav_menu footer-widget">
+                        <h3 class="widget_title"> {% trans "Main sections" %}</h3>
+                        <div class="menu-all-pages-container">
+                            <ul class="menu">
+
+                                <li><a href="{% url 'Our_Services:mechanics_view' %}">{% trans 'Mechanics' %}</a></li>
+                                <li><a href="{% url 'Our_Services:electricity_view' %}">{% trans 'Electricity' %}</a></li>
+                                <li><a href="{% url 'Our_Services:bodyworkandpainting_view' %}">{% trans 'Bodywork And Painting ' %}</a></li>
+                                <li><a href="{% url 'Our_Services:thermalandsoundinsulation_view' %}"> {% trans 'Thermal And Sound Insulation' %} </a></li>
+                                <li><a href="{% url 'Our_Services:carprogramming_view' %}">{% trans 'Car Programming' %}</a></li>
+                                <li><a href="{% url 'Our_Services:sportssuspension_view' %}">{% trans 'Sports Suspension ' %}</a></li>
+                                <li><a href="{% url 'Our_Services:roadsideassistance_view' %}">{% trans 'Roadside Assistance' %} </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-auto">
+                    <div class="widget footer-widget">
+                        <img style="    margin: -11px 0px 33px 0px; width: 156px;"
+                            src="{% static 'assets/img/output-onlinepngtools.png' %}" alt="">
+                        <div class="widget-contact">
+                            <p>من السبت الى الخميس </p>
+                            <p><a>من الساعة 8 ص الى الساعة 7:30 م</a></p>
+                            <p><a>الجمعة : مغلق</a></p>
+                        </div>
+                        <div class="social-btn">
+                            <a href="https://www.tiktok.com/@mspco?is_from_webapp=1&sender_device=pc"><i
+                                    class="fab fa-tiktok"></i></a>
+                            <a href="https://snapchat.com/t/aVwFGuAi"><i class="fab fa-snapchat"></i></a>
+                            <a
+                                href="https://www.instagram.com/specialistcompany?igsh=OWhxbzBuNmltNGx5&utm_source=qr"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="https://x.com/tsem_co"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.youtube.com/@Specialist-Co"><i class="fab fa-youtube"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright-wrap">
+        <div class="container">
+            <div class="row gy-3 justify-content-md-between justify-content-center">
+                <div class="col-auto align-self-center">
+                    <p class="copyright-text text-center">© <a href="#">Yellostack</a> 2024 | كل الحقوق محفوظة</p>
+                </div>
+                <div class="col-auto">
+                    <div class="footer-links">
+                        <a href="#">سياسة الخصوصية</a>
+                        <a href="#">الشروط والأاحكام </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<!-- WhatsApp Icon -->
+<a href="https://wa.me/0559124999" class="whatsapp-icon" target="_blank">
+    <img src="{% static 'assets/img/icon/whatsapp.png' %}" alt="WhatsApp">
+</a>
+
+
+
+
+<!-- Scroll To Top -->
+<div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+            style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
+        </path>
+    </svg>
+</div>
+
+
+
+
+<script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/js/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.marquee.min.js' %}"></script>
+<script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+
+</body>
+
+</html>

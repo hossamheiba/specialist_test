@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+<div class="breadcumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="breadcumb-content">
+                    <h1 class="breadcumb-title">{% trans 'Frequently Asked Questions Section' %}</h1>
+                    <ul class="breadcumb-menu">
+                        <li><a href="{% url 'Home' %}"> {% trans 'Home' %} </a></li>
+                        <li class="active"> {% trans 'Frequently Asked Questions' %}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 d-lg-block d-none">
+                {% if faq_section.image_banner %}
+                    <div class="breadcumb-thumb">
+                        <img src="{{ faq_section.image_banner.url }}" alt="img" />
+                    </div>
+                {% else %}
+                    <div class="breadcumb-thumb">
+                        <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="space-bottom">
+    <div class="portfolio-shape-img shape-mockup d-lg-block d-none">
+        <div class="about-counter-wrap">
+            <img class="w-75" src="{% static 'assets/img/normal/road_shape_1.png' %}" alt="img">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row flex-row-reverse">
+            <div class="row">
+                <!-- قسم الحجز  -->
+                <div class="col-12 col-lg-12">
+                        <div class="card card-body">
+                            <div class="contact-form-wrap pb">
+                                <div class="title-area">
+                                    <span class="sub-title mt-3">{% trans 'Book a service now' %}</span>
+                                </div>
+                                <form method="POST" class="appointment-form" action="{% url 'Book_Service:book_appointment' %}">
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            {% for message in messages %}
+                                                Swal.fire({
+                                                    icon: 'warning',
+                                                    title: 'الموعد محجوز',
+                                                    text: '{{ message }}',
+                                                    confirmButtonText: 'OK'
+                                                });
+                                            {% endfor %}
+                                        });
+                                    </script>
+                                    {% endif %}
+                                    <div class="row">
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select name="car_brand" id="car_brand" class="form-select" required>
+                                                <option value="" disabled selected hidden>{% trans 'Car Brand' %}</option>
+                                                {% for brand in car_brands %}
+                                                    <option value="{{ brand.id }}" {% if brand.id == data.car_brand %} selected {% endif %}>{{ brand.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select name="car_model" id="car_model" class="form-select" required>
+                                                <option value="" disabled selected hidden>{% trans 'Car Model' %}</option>
+                                                {% for model in car_models %}
+                                                    <option value="{{ model.id }}" {% if model.id == data.car_model %} selected {% endif %}>{{ model.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                    <script>
+                                        function loadCarModels(brandId, selectedModelId = null) {
+                                            fetch(`/Book_Service/get_car_models/?car_brand=${brandId}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    const carModelSelect = document.getElementById("car_model");
+                                                    carModelSelect.innerHTML = `<option value="" disabled selected hidden>{% trans 'Car Model' %}</option>`;
+                                                    data.models.forEach(model => {
+                                                        const option = document.createElement("option");
+                                                        option.value = model.id;
+                                                        option.textContent = model.name;
+                                                        if (selectedModelId && model.id == selectedModelId) {
+                                                            option.selected = true;
+                                                        }
+                                                        carModelSelect.appendChild(option);
+                                                    });
+                                                })
+                                                .catch(error => console.error("Error fetching car models:", error));
+                                        }
+                                        
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const carBrandSelect = document.getElementById("car_brand");
+                                            carBrandSelect.addEventListener("change", function () {
+                                                loadCarModels(this.value);
+                                            });
+                                        
+                                            // Load models if a car brand is already selected
+                                            if (carBrandSelect.value) {
+                                                loadCarModels(carBrandSelect.value, "{{ data.car_model|default:'' }}");
+                                            }
+                                        });
+                                        
+                                    </script>
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select name="engine_type" id="engine_type" class="form-select" required>
+                                                <option value="" disabled selected hidden>{% trans 'Engine Type' %}</option>
+                                                {% for engine in engine_types %}
+                                                    <option value="{{ engine.id }}" {% if engine.id == data.engine_type %} selected {% endif %}>{{ engine.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select name="manufacturing_year" id="manufacturing_year" class="form-select" required>
+                                                <option value="" disabled selected hidden>{% trans 'Manufacturing Year' %}</option>
+                                                {% for year in years %}
+                                                <option value="{{ year }}">{{ year }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <div class="flatpickr-container">
+                                                    <input value="{{ data.appointment_date|default:'' }}" type="text" class="form-control flatpickr-date py-4" id="appointment_date" name="appointment_date" placeholder="{% trans 'Select date' %}" required>
+                                                    <span class="calendar-icon">
+                                                        <i class="fas fa-calendar-alt" style="color: #F1683C;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <div class="flatpickr-container">
+                                                    <input value="{{ data.appointment_time|default:'' }}" type="time" class="form-control flatpickr-time py-4" id="appointment_time" name="appointment_time" placeholder="{% trans 'Select Time' %}" required>
+                                                    <span class="calendar-icon">
+                                                        <i class="fas fa-clock" style="color: #F1683C;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="form-group col-12">
+                                        <textarea name="notes" placeholder="{% trans 'Notes' %}" id="notes" class="form-control"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="coupon_code">كود الخصم</label>
+                                        <input type="text" id="coupon_code" name="coupon_code" placeholder="أدخل كود الخصم">
+                                        <div id="coupon_status" style="font-size: 16px; margin-top: 10px;"></div> <!-- حالة الكوبون ستظهر هنا -->
+                                    </div>
+                                    
+                                    <script>
+                                        document.getElementById("coupon_code").addEventListener("input", function () {
+                                            const couponCode = this.value.trim();
+                                            const couponStatus = document.getElementById("coupon_status");
+                                            if (!couponCode) {
+                                                couponStatus.textContent = "";
+                                                return;
+                                            }
+                                        
+                                            fetch("{% url 'Book_Service:check_coupon' %}", {
+                                                method: "POST",
+                                                headers: {
+                                                    "X-CSRFToken": "{{ csrf_token }}"
+                                                },
+                                                body: new URLSearchParams({ coupon_code: couponCode })
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                couponStatus.textContent = data.message + (data.valid ? ` - خصم %${data.discount_percentage}` : "");
+                                                couponStatus.style.color = data.valid ? "green" : "red";
+                                            })
+                                            .catch(error => {
+                                                console.error("Error verifying coupon:", error);
+                                                couponStatus.textContent = "حدث خطأ أثناء التحقق.";
+                                                couponStatus.style.color = "red";
+                                            });
+                                        });
+                                        
+                                    </script>
+                                    
+                            
+                                
+                                    <div class="form-btn col-12">
+                                        <button type="submit" class="btn btn-primary">{% trans 'Book an appointment' %}</button>
+                                    </div>
+   
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const unavailableDates = {{ unavailable_dates|safe }};
+                                            const today = new Date().toISOString().split("T")[0];
+                                    
+                                            const flatpickrConfig = {
+                                                locale: "ar",
+                                                minDate: today,
+                                                disable: unavailableDates,
+                                                onChange: function (selectedDates, dateStr, instance) {
+                                                    const inputElement = instance.input;
+                                    
+                                                    // إذا لم يتم تحديد تاريخ، أضف فئة CSS لتغيير المظهر
+                                                    if (!dateStr) {
+                                                        inputElement.classList.add("unselected-date");
+                                                    } else {
+                                                        inputElement.classList.remove("unselected-date");
+                                                    }
+                                                }
+                                            };
+                                    
+                                            flatpickr(".flatpickr-date", { ...flatpickrConfig, dateFormat: "Y-m-d" });
+                                            flatpickr(".flatpickr-time", {
+                                                enableTime: true,
+                                                noCalendar: true,
+                                                dateFormat: "H:i",
+                                                time_24hr: true,
+                                            });
+                                        });
+                                    </script>
+                                    
+                                    <style>
+                                        /* إضافة خلفية حمراء أو تغيير اللون لحقل التاريخ غير المحدد */
+                                        .flatpickr-input.unselected-date {
+                                            background-color: red;
+                                            color: white;
+                                        }
+                                    </style>
+                                    
+                                </form>
+
+                                                
+                                
+                            </div>
+                        </div>
+                </div>
+            
+        
+            </div>
+
+
+<div class="contact-card col-lg-12 m-auto py-3">
+    <h5><i class="fas fa-map-marker-alt"></i>{% trans "Address" %}</h5>
+    <p>{{ contact.address }}</p>
+
+    <h5><i class="fas fa-phone-square"></i> {% trans "Phone" %}</h5>
+    <a class="contact-link" href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+
+    <h5><i class="fas fa-envelope"></i> {% trans "Email" %}</h5>
+    <p>
+        <a class="contact-link" href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+    </p>
+</div>
+
+</div>
+</div>
+</div>
+
+{% endblock body %}

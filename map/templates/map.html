@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تحديد الموقع</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+        #latitude, #longitude {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>اختر موقعك</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" id="latitude" name="latitude" readonly><br>
+        <input type="text" id="longitude" name="longitude" readonly><br>
+        <button type="button" id="get-location">حدد موقعي</button><br>
+        <button type="submit">ارسال</button>
+    </form>
+
+    <div id="map"></div>
+
+    <script>
+        // إعداد الخريطة
+        var map = L.map('map', {
+            attributionControl: false // تعطيل عرض النص (attribution) في أسفل الخريطة
+        }).setView([26.4207, 49.9777], 11); // تحديد موقع البداية في الدمام
+
+        // إضافة طبقة الخريطة
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '' // إلغاء النص تمامًا
+        }).addTo(map);
+
+        var marker;
+
+        // عند النقر على الخريطة (تم تعطيله الآن)
+        map.on('click', function(e) {
+            // هذه الدالة لا تعمل الآن لأنها تم تعطيل التفاعل مع الخريطة
+        });
+
+        // تحديد الموقع الجغرافي عند الضغط على الزر "حدد موقعي"
+        document.getElementById('get-location').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    // تحديث الحقول في النموذج
+                    document.getElementById('latitude').value = lat;
+                    document.getElementById('longitude').value = lng;
+
+                    // تحديث الخريطة مع دقة عالية
+                    map.setView([lat, lng], 16);  // زيادة مستوى التكبير للحصول على دقة أعلى
+                    if (marker) {
+                        marker.setLatLng([lat, lng]);
+                    } else {
+                        marker = L.marker([lat, lng]).addTo(map);  // إضافة علامة جديدة
+                    }
+                }, function(error) {
+                    alert('تعذر الحصول على الموقع: ' + error.message);
+                }, {
+                    enableHighAccuracy: true, // تفعيل الدقة العالية
+                    timeout: 5000,  // تعيين وقت الانتظار للحصول على الموقع
+                    maximumAge: 0  // تجنب استخدام الموقع المخزن
+                });
+            } else {
+                alert('متصفحك لا يدعم تحديد الموقع الجغرافي.');
+            }
+        });
+    </script>
+</body>
+</html>

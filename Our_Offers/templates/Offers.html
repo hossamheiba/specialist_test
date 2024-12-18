@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+  <div class="breadcumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <!-- Breadcrumb Text -->
+        <div class="col-lg-6">
+          <div class="breadcumb-content">
+            <h1 class="breadcumb-title">قسم الكهرباء</h1>
+            <ul class="breadcumb-menu">
+              <li>
+                <a href="{% url 'Home' %} ">الرئيسية</a>
+              </li>
+              <li class="active">الكهرباء</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Breadcrumb Image -->
+        <div class="col-lg-6 d-lg-block d-none">
+          {% if slider.image_banner %}
+            <div class="breadcumb-thumb">
+              <img src="{{ slider.image_banner.url }}" alt="img" />
+            </div>
+          {% else %}
+            <div class="breadcumb-thumb">
+              <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row py-5 my-5">
+      <div class="col-12 col-md-6 m-auto">
+        <h2 class="mb-3 pt-3">{{ slider.title|default:'العنوان غير متوفر' }}</h2>
+        <p class="mb-4">{{ slider.description|default:'الوصف غير متوفر' }}</p>
+        <a href="{% url 'Book_Service:book_service' %}" class="btn style2 style-radius"><i class="fas fa-calendar-alt mx-2"></i> {% trans 'Book a service now' %}</a>
+      </div>
+
+      <div class="col-lg-6">
+        {% if slider and slider.offer_sliders.exists %}
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              {% for slide in slider.offer_sliders.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img src="{{ slide.image.url }}" style="height: 30vh;" class="d-block w-100 rounded-3" alt="Slide Image" />
+                </div>
+              {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        {% else %}
+          <p>لا توجد صور متوفرة للسلايدر حاليًا.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container space-top">
+    {% if offers %}
+      {% for offer in offers %}
+        <h2 class="mb-4 pt-3">{{ offer.title }}</h2>
+        <div class="row global-carousel arrow-margin" data-slide-show="3" data-arrows="true">
+          {% for card in offer.offer_cards.all %}
+            <div class="col-lg-6">
+              <div class="single-intro-wrap">
+                <div class="thumb">
+                  <img src="{{ card.background_card.url }}" alt="img" />
+                </div>
+                <div class="details">
+                  <h3>{{ card.title }}</h3>
+                  <p>{{ card.content_one }}</p>
+                  <p>{{ card.content_tow }}</p>
+                  {% with page_type=card.page_type %}
+                    <a class="btn"
+                      href="
+                                {% if page_type == 'mechanics' %}
+                        {% url 'Our_Services:mechanics_view' %}
+                      {% elif page_type == 'electricity' %}
+                        {% url 'Our_Services:electricity_view' %}
+                      {% elif page_type == 'bodywork_and_painting' %}
+                        {% url 'Our_Services:bodyworkandpainting_view' %}
+                      {% elif page_type == 'thermal_and_soundin_sulation' %}
+                        {% url 'Our_Services:thermalandsoundinsulation_view' %}
+                      {% elif page_type == 'car_programming' %}
+                        {% url 'Our_Services:carprogramming_view' %}
+                      {% elif page_type == 'sports_suspension' %}
+                        {% url 'Our_Services:sportssuspension_view' %}
+                      {% elif page_type == 'roadside_assistance' %}
+                        {% url 'Our_Services:roadsideassistance_view' %}
+                      {% else %}
+                        
+                        
+                        
+                        
+                        
+                                    #
+
+
+
+
+
+                      {% endif %}
+                            ">
+                      المزيد من التفاصيل <i class="ri-arrow-right-line"></i>
+                    </a>
+                  {% endwith %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>لا توجد عروض متاحة حاليًا.</p>
+    {% endif %}
+  </div>
+{% endblock %}

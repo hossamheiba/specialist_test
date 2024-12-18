@@ -1,0 +1,134 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block body %}
+
+<!-- Breadcrumb Section -->
+<div class="breadcumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb Text -->
+            <div class="col-lg-6">
+                <div class="breadcumb-content">
+                    <h1 class="breadcumb-title">قسم  مركزنا</h1>
+                    <ul class="breadcumb-menu">
+                        <li><a href="{% url 'Home' %} "> الرئيسية </a></li>
+                        <li class="active">السمكرة مركزنا</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Breadcrumb Image -->
+            <div class="col-lg-6 d-lg-block d-none">
+
+                    <div class="breadcumb-thumb">
+                        <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contact-area space mt-5">
+    <div class="container">
+        <div class="row gy-4 justify-content-center">
+            <div class="col-xxl-3 col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <div class="contact-info_icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h6 class="contact-info_title">{% trans "Address" %}</h6>
+                    <p class="contact-info_text"> {{ contact.address }}</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <div class="contact-info_icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h6 class="contact-info_title"> {% trans "Phone" %}</h6>
+                    <p class="contact-info_text">
+                        <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xxl-3 col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <div class="contact-info_icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h6 class="contact-info_title">{% trans "Email" %}</h6>
+                    <p class="contact-info_text">
+                        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="space-bottom">
+    <div class="container">
+        <div style="border-radius: 10px;" id="map"></div>
+
+    </div>
+</div>
+
+<style>
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+
+    .leaflet-control-attribution {
+        display: none;
+    }
+
+    
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // إعداد الخريطة
+    var map = L.map('map', {
+        attributionControl: false // تعطيل عرض النص (attribution) في أسفل الخريطة
+    }).setView([26.39979944036719, 50.16835629901516], 12);
+
+    // طبقة OpenStreetMap مع تعطيل الـ attribution
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '' // إلغاء النص تمامًا
+    }).addTo(map);
+
+    // المواقع القادمة من Django
+    var locations = {{ locations|safe }};
+    
+    locations.forEach(function(location) {
+        var marker = L.marker([location.latitude, location.longitude]).addTo(map);
+        var popupContent = `
+            <div>
+                <h3>${location.title}</h3>
+                <p>${location.description}</p>
+                <p><a href="${location.url}" target="_blank">${location.address}</a></p>
+                ${location.image ? `<img src="${location.image}" alt="Image" style="width:100px; height:auto;">` : ''}
+            </div>
+        `;
+        marker.bindPopup(popupContent);
+    });
+</script>
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

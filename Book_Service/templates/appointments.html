@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+
+<style>
+/* تنسيق الجدول */
+.appointment-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.appointment-table th, .appointment-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.appointment-table th {
+    background-color: #f26b3c;
+    color: white;
+    font-weight: bold;
+}
+
+.appointment-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.appointment-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.appointment-table td {
+    font-size: 14px;
+    color: #555;
+}
+
+/* تنسيق الكروت */
+.appointment-card-container {
+    display: none; /* إخفاء الكروت على الشاشات الكبيرة */
+}
+
+.appointment-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: linear-gradient(145deg, #ffffff, #f3f3f3);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    direction: ltr; /* الاتجاه الافتراضي للكروت */
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.6);
+}
+
+.appointment-card div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.appointment-card .icon {
+    color: #f26b3c;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.appointment-card .label {
+    font-weight: bold;
+    color: #555;
+}
+
+.appointment-card .value {
+    color: #333;
+    font-size: 14px;
+    margin-left: auto;
+    font-weight: 500;
+}
+
+/* تنسيق RTL للكروت */
+html[dir="rtl"] .appointment-card {
+    direction: rtl;
+}
+
+html[dir="rtl"] .appointment-card .icon {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+/* استجابة الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .appointment-table {
+        display: none; /* إخفاء الجدول على الشاشات الصغيرة */
+    }
+
+    .appointment-card-container {
+        display: block; /* إظهار الكروت على الشاشات الصغيرة */
+    }
+}
+
+
+html[dir="rtl"] .appointment-card .value {
+    margin-right: 10px; /* مسافة بين value و label في RTL */
+    margin-left: 0;
+    text-align: left !important;
+}
+</style>
+
+<div class="container my-5 py-5">
+    <h1 class="text-center text-black-50">{{ user.first_name }} {{ user.last_name }}</h1>
+
+    {% if appointments %}
+        <h3 class="text-center">{% trans 'Your Appointments' %}</h3>
+
+        <!-- الجدول للمواعيد (للشاشات الكبيرة) -->
+        <table class="appointment-table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-calendar-alt icon mx-1"></i> {% trans 'Appointment Date' %}</th>
+                    <th><i class="fas fa-clock icon mx-1"></i> {% trans 'Appointment Time' %}</th>
+                    <th><i class="fas fa-car icon mx-1"></i> {% trans 'Car Brand' %}</th>
+                    <th><i class="fas fa-car-side icon mx-1"></i> {% trans 'Car Model' %}</th>
+                    <th><i class="fas fa-cogs icon mx-1"></i> {% trans 'Engine Type' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.appointment_date }}</td>
+                        <td>{{ appointment.appointment_time|time:"H:i" }}</td>
+                        <td>{{ appointment.car_brand.name }}</td>
+                        <td>{{ appointment.car_model.name }}</td>
+                        <td>{{ appointment.engine_type.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- تصميم الكروت (للشاشات الصغيرة) -->
+        <div class="appointment-card-container">
+            {% for appointment in appointments %}
+                <div class="appointment-card">
+                    <div>
+                        <i class="fas fa-calendar-alt icon"></i>
+                        <span class="label">{% trans 'Appointment Date' %}:</span> 
+                        <span class="value">{{ appointment.appointment_date }}</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-clock icon"></i>
+                        <span class="label">{% trans 'Appointment Time' %}:</span> 
+                        <span class="value">{{ appointment.appointment_time|time:"H:i" }}</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-car icon"></i>
+                        <span class="label">{% trans 'Car Brand' %}:</span> 
+                        <span class="value">{{ appointment.car_brand.name }}</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-car-side icon"></i>
+                        <span class="label">{% trans 'Car Model' %}:</span> 
+                        <span class="value">{{ appointment.car_model.name }}</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-cogs icon"></i>
+                        <span class="label">{% trans 'Engine Type' %}:</span> 
+                        <span class="value">{{ appointment.engine_type.name }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="d-flex justify-content-center my-4">
+            <a href="{% url 'Book_Service:book_service' %}" class="btn style2 style-radius">
+                <i class="fas fa-calendar-alt mx-2"></i> {% trans 'Book the service now' %}
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

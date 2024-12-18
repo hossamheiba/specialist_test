@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+
+  <div class="breadcumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="breadcumb-content">
+            <h1 class="breadcumb-title">{% trans 'Frequently Asked Questions Section' %}</h1>
+            <ul class="breadcumb-menu">
+              <li>
+                <a href="{% url 'Home' %}">{% trans 'Home' %}</a>
+              </li>
+              <li class="active">
+                {% trans 'Frequently Asked Questions' %}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 d-lg-block d-none">
+          {% if faq_section.image_banner %}
+            <div class="breadcumb-thumb">
+              <img src="{{ faq_section.image_banner.url }}" alt="img" />
+            </div>
+          {% else %}
+            <div class="breadcumb-thumb">
+              <img src="{% static 'assets/img/normal/output-onlinepngtools (1).png' %}" alt="img" />
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-bottom">
+
+
+
+    <div class="d-flex justify-content-center align-items-center mt-5" >
+        <div class="text-center">
+            <a href="{% url 'Book_Service:book_appointment' %}" class="btn mb-3 w-75 w-md-auto">
+                <i class="fas fa-calendar-check me-2"></i> حجز الموعد
+            </a>
+            <a href="{% url 'Book_Service:submit_location' %}" class="btn w-75 w-md-auto">
+                <i class="fas fa-truck-moving me-2"></i> طلب سطحة الآن
+            </a>
+        </div>
+    </div>
+    
+    
+        
+
+
+
+  </div>
+{% endblock %}

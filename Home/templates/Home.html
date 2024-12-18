@@ -1,0 +1,536 @@
+{% extends 'base.html' %} {% load static %} {% load i18n %} {% block body %}
+  {% comment %}Header{% endcomment %}
+  <div class="hero-wrapper hero-3">
+    <div class="hero-3-slider global-carousel" data-autoplay="true" data-autoplay-speed="5000" data-slide-show="1" data-fade="true" data-adaptive-height="true">
+      {% if header %}
+        {% for slide in header %}
+          {% for bg_image in slide.background_images.all %}
+            <div class="hero-slide"
+              style="background-image: url('{% if bg_image.background_image %}
+                {{ bg_image.background_image.url }}
+              {% else %}
+                {% static 'assets/img/default-background.jpg' %}
+              {% endif %}');
+                         background-size: cover; background-position: center;">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xxl-6 col-xl-5 col-lg-6 col-md-12 col-sm-12">
+                    <div class="hero-style3">
+                      {% if slide.subtitle %}
+                        <div class="hero-subtitle text-white" data-ani="slideinup" data-ani-delay="0s">
+                          <span>
+                            <img src="{% static 'assets/img/hero/hero_shape_3.png' %}" alt="{% trans 'Hero Shape' %}" />
+                            {{ slide.subtitle }}
+                          </span>
+                        </div>
+                      {% endif %}
+                      {% if slide.title %}
+                        <h2 class="hero-title text-white" data-ani="slideinup" data-ani-delay="0.1s">{{ slide.title }}</h2>
+                      {% else %}
+                        <h2 class="hero-title text-white" data-ani="slideinup" data-ani-delay="0.1s">{% trans 'Default Title' %}</h2>
+                      {% endif %}
+                      <div class="btn-group text-center" data-ani="slideinup" data-ani-delay="0.3s">
+                        <a href="{% url 'Book_Service:book_service' %}" class="btn">{% trans 'Book a service now' %}</a>
+
+                        {% if slide.phone_number %}
+                          <div class="call-media-wrap">
+                            <div class="icon">
+                              <img src="{% static 'assets/img/icon/phone-2.svg' %}" alt="{% trans 'Phone Icon' %}" />
+                            </div>
+                            <div class="media-body">
+                              <h6 class="title text-white">{% trans 'Call Now:' %}</h6>
+                              <h4 class="link"><a class="text-white" href="tel:{{ slide.phone_number }}">{{ slide.phone_number }}</a></h4>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 align-self-center">
+                    {% if slide.video_link %}
+                      <div class="video-wrap text-lg-center text-center" data-ani="slideinup" data-ani-delay="0.2s">
+                        <a href="{{ slide.video_link }}" class="play-btn style4 popup-video"><i><img src="{% static 'assets/img/شعار-شركة-المتخصصون-المعتمد.png' %}" alt="{% trans 'Company Logo' %}" /></i></a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% else %}
+        <p class="text-center">
+          {% trans 'No data available to display at the moment.' %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="feature-area-3">
+    <div class="container">
+      <div class="row gy-4 justify-content-center">
+        {% for feature in feature_items %}
+          <div class="col-xl-4">
+            <div class="single-feature-wrap">
+              <div class="thumb">
+                {% if feature.image_or_icon %}
+                  <img src="{{ feature.image_or_icon.url }}" alt="{{ feature.title }}" />
+                {% else %}
+                  <img src="{% static 'assets/img/default-icon.png' %}" alt="{{ feature.title }}" />
+                {% endif %}
+              </div>
+              <div class="media-body">
+                <h4>{{ feature.title|default:_('No Title') }}</h4>
+                <p>{{ feature.description|default:_('No Description Available') }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %}abuot_homepage{% endcomment %}
+  <div class="bg-smoke space-top mt-5 pt-5">
+    {% for section in about_sections %}
+      <div class="about1-shape-img shape-mockup">
+        <img class="about1-shape-img-1 spin" src="{% static 'assets/img/normal/about_shape1-2.svg' %}" alt="About Shape 1" />
+        <img class="about1-shape-img-2 spin2" src="{% static 'assets/img/normal/about_shape1-1.svg' %}" alt="About Shape 2" />
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-xxl-7 col-xl-6">
+            <div class="about-thumb2 mb-40 mb-xl-0">
+              {% if section.image_1 %}
+                <div class="about-img-1">
+                  <img class="img-fluid" src="{{ section.image_1.url }}" alt="Primary Image" />
+                </div>
+              {% endif %}
+
+              {% if section.image_2 %}
+                <div class="about-img-2">
+                  <img class="img-fluid w-75" src="{{ section.image_2.url }}" alt="Secondary Image" />
+                </div>
+              {% endif %}
+
+              {% if section.counter_icon and section.counter_value and section.counter_label %}
+                <div class="about-counter-wrap jump-reverse">
+                  <img class="img-fluid" style="max-width: 40px;" src="{{ section.counter_icon.url }}" alt="Counter Icon" />
+                  <h3 class="about-counter">+<span class="counter-number">{{ section.counter_value }}</span></h3>
+                  <h4 class="about-counter-text">{{ section.counter_label }}</h4>
+                </div>
+              {% endif %}
+
+              {% if section.experience_icon and section.experience_years and section.experience_label %}
+                <div class="about-year-wrap2 movingX">
+                  <div class="about-year-grid-wrap">
+                    <div class="icon">
+                      <img class="img-fluid" style="max-width: 35px;" src="{{ section.experience_icon.url }}" alt="Experience Icon" />
+                    </div>
+                    <h3 class="about-counter">+<span class="counter-number">{{ section.experience_years }}</span></h3>
+                  </div>
+                  <h4 class="about-year-text">{{ section.experience_label }}</h4>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-xxl-5 col-xl-6 mt-5">
+            <div class="about-content-wrap">
+              <div class="title-area mb-30">
+                {% if section.subtitle %}
+                  <span class="sub-title">{{ section.subtitle }}</span>
+                {% endif %}
+                {% if section.title %}
+                  <h2 class="sec-title">
+                    {{ section.title }}
+                    <img class="title-bg-shape shape-center" src="{% static 'assets/img/bg/title-bg-shape.png' %}" alt="Title Background Shape" />
+                  </h2>
+                {% endif %}
+                {% if section.description %}
+                  <p class="sec-text">{{ section.description }}</p>
+                {% endif %}
+              </div>
+
+              <div class="btn-wrap mt-20">
+                <a href="{% url 'About_Us' %}" class="btn style2 mt-xl-0 mt-20">{% trans 'More' %} <i class="fas fa-arrow-left ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %}Work_Section{% endcomment %}
+  <section class="process-area-1 space my-5 py-5">
+    <div class="portfolio-shape-img shape-mockup d-lg-block d-none">
+      <div class="about-counter-wrap jump-reverse">
+        <img class="w-50" src="{% static 'assets/img/normal/qq.png' %}" alt="img" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="title-area text-center">
+            {% if section.subtitle %}
+              <span class="sub-title">{{ section.subtitle }}</span>
+            {% endif %}
+            {% if section.title %}
+              <h2 class="sec-title">{{ section.title }}</h2>
+            {% else %}
+              <h2 class="sec-title">{% trans 'Default Section Title' %}</h2>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="row gy-30">
+        {% for card in section.cards.all %}
+          <div class="col-lg-4 process-card-wrap">
+            <div class="process-card {% if forloop.counter == 2 %}process-card-center{% endif %}">
+              <div class="process-card-icon">
+                {% if card.icon %}
+                  <img src="{{ card.icon.url }}" alt="{{ card.title|default:'Card Icon' }}" style="height: 80px;" />
+                {% else %}
+                  <img src="{% static 'assets/img/default-icon.png' %}" alt="Default Icon" />
+                {% endif %}
+              </div>
+              <h4 class="process-card-title">{{ card.title|default:'Default Card Title' }}</h4>
+              <p class="process-card-text">{{ card.description|default:'No description available.' }}</p>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-center">No cards available in this section.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {% comment %}Our_Services_Card{% endcomment %}
+  <div class="service-area-2 mt-5 space overflow-hidden">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="title-area text-center">
+            <span class="sub-title">{{ services.subtitle|default:_('Text not available') }}</span>
+            <h3 class="sec-title">
+              {{ services.title|default:_('Text not available') }}
+              <img class="title-bg-shape shape-center" src="{% static 'assets/img/bg/title-bg-shape.png' %}" alt="img" />
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row gy-4 justify-content-center">
+        {% for service in services.service_cards.all %}
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card style2">
+              <div class="service-card_content"
+                style="{% if service.background_card %}
+                  
+                  background-image: url('{{ service.background_card.url }}')
+
+                {% endif %}">
+                <div class="m-auto text-center">
+                  <div class="service-card_icon">
+                    {% if service.icon %}
+                      <img src="{{ service.icon.url }}" alt="icon" />
+                    {% endif %}
+                  </div>
+                  <h4 class="service-card_title h5 text-white">{{ service.title|default:_('No Title Available') }}</h4>
+                  <br />
+                  <a href="
+                                {% if service.page_type == 'mechanics' %}
+                      {% url 'Our_Services:mechanics_view' %}
+                    {% elif service.page_type == 'electricity' %}
+                      {% url 'Our_Services:electricity_view' %}
+                    {% elif service.page_type == 'bodywork_and_painting' %}
+                      {% url 'Our_Services:bodyworkandpainting_view' %}
+                    {% elif service.page_type == 'thermal_and_soundin_sulation' %}
+                      {% url 'Our_Services:thermalandsoundinsulation_view' %}
+                    {% elif service.page_type == 'car_programming' %}
+                      {% url 'Our_Services:carprogramming_view' %}
+                    {% elif service.page_type == 'sports_suspension' %}
+                      {% url 'Our_Services:sportssuspension_view' %}
+                    {% elif service.page_type == 'roadside_assistance' %}
+                      {% url 'Our_Services:roadsideassistance_view' %}
+                    {% else %}
+                      
+                      #
+
+                    {% endif %}"
+                    class="btn style4">
+                    {% trans 'More' %} <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %}slider_card{% endcomment %}
+  <div class="portfolio-area-1 space overflow-hidden my-5">
+    <div class="container">
+      <div class="row justify-content-between align-items-end">
+        <div class="col-xl-5 col-lg-6">
+          <div class="title-area">
+            <span class="sub-title">{{ slider_section.subtitle|default:_('Text not available') }}</span>
+            <h2 class="sec-title">{{ slider_section.title|default:_('Text not available') }}</h2>
+          </div>
+        </div>
+        <div class="col-sm-auto">
+          <div class="title-area">
+            <div class="icon-box">
+              <button data-slick-prev=".portfolio-slider1" class="slick-arrow default"><i class="fas fa-arrow-right"></i></button>
+              <button data-slick-next=".portfolio-slider1" class="slick-arrow default"><i class="fas fa-arrow-left"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid p-0">
+      <div class="row global-carousel gx-30 portfolio-slider1" data-autoplay="true" data-autoplay-speed="4000" data-slide-show="1" data-center-mode="true" data-xl-center-mode="true" data-ml-center-mode="true" data-lg-center-mode="true" data-center-padding="578px" data-xl-center-padding="350px" data-ml-center-padding="300px" data-lg-center-padding="200px">
+        {% for card in slider_section.slider_card.all %}
+          <div class="col-lg-6">
+            <div class="portfolio-card style2">
+              <div class="portfolio-card-thumb">
+                {% if card.image %}
+                  <img style="height: 50vh;" src="{{ card.image.url }}" alt="img" />
+                {% else %}
+                  <img src="/static/images/default.jpg" alt="default" />
+                {% endif %}
+              </div>
+              <div class="portfolio-card-details">
+                <div class="media-left">
+                  <h4 class="portfolio-card-details_title text-white">{{ card.title|default:_('Text not available') }}</h4>
+                  <span class="portfolio-card-details_subtitle">{{ card.description|default:_('Description not available') }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %}question and answer{% endcomment %}
+  <section class="faq-area-2 space-bottom mt-5 pt-5">
+    <div class="container">
+      <div class="row gx-60 flex-row-reverse">
+        <div class="col-xl-6">
+          <div class="faq-thumb2 mb-xl-0 mb-50">
+            {% if faq_section.image %}
+              <img style="height: 50vh; width: 100%;" src="{{ faq_section.image.url }}" alt="{% trans 'Image' %}" />
+            {% else %}
+              <img src="/static/images/default-image.jpg" alt="{% trans 'Default Image' %}" />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="title-area">
+            <span class="sub-title">{{ faq_section.subtitle|default:_('Frequently Asked Questions') }}</span>
+            <h2 class="sec-title">{{ faq_section.title|default:_('Optional Title') }}</h2>
+          </div>
+          <div class="accordion-area accordion" id="faqAccordion">
+            {% for item in faq_section.faq_items.all %}
+              <div class="accordion-card style2 {% if forloop.first %}active{% endif %}">
+                <div class="accordion-header" id="collapse-item-{{ forloop.counter }}">
+                  <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse-{{ forloop.counter }}"
+                    aria-expanded="{% if forloop.first %}
+                      
+                      true
+
+                    {% else %}
+                      
+                      false
+
+                    {% endif %}"
+                    aria-controls="collapse-{{ forloop.counter }}">
+                    {{ item.question|default:_('No Answer Available') }}
+                  </button>
+                </div>
+                <div id="collapse-{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="collapse-item-{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    <p class="faq-text">{{ item.answer|default:_('No Answer Available') }}</p>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+              <p>
+                {% trans 'No Frequently Asked Questions Available' %}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mt-4">
+    <div class="intro-area-2 space mt-0">
+        <div class="team-area-2 space">
+            <div class="container">
+                <!-- عنوان القسم -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="title-area text-center">
+                            <span class="sub-title">أراء العملاء</span>
+                            <h2 class="sec-title">ماذا يقول عميلنا ؟</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- عرض التعليقات -->
+                <div class="row gx-30 global-carousel team-slider2" data-autoplay="true" data-autoplay-speed="3000" data-slide-show="3" data-md-slide-show="2">
+                    {% for comment in comments %}
+                    <div class="col-lg-4 col-md-6 pt-3">
+                        <div class="single-intro-wrap style2">
+                            <span class="bg-border"></span>
+                            <div class="thumb">
+                                {% if comment.user.profile_image %}
+                                <img src="{{ comment.user.profile_image.url }}" alt="{{ comment.user.first_name }}" />
+                                {% else %}
+                                <img src="{% static 'assets/img/testimonial/user.png' %}" alt="img" />
+                                {% endif %}
+                            </div>
+                            <div class="details">
+                                <h3>{{ comment.user.first_name }} {{ comment.user.last_name }}</h3>
+                                <p>{{ comment.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- حقل إضافة تعليق -->
+                {% if user.is_authenticated %}
+                    {% if not user_has_commented %}
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <div class="add-comment-section">
+                                <h4 class="text-center mb-3">أضف تعليقك</h4>
+                                <form method="POST" action="{% url 'add_comment' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="comment" rows="4" placeholder="اكتب تعليقك هنا"></textarea>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary mt-2">إرسال التعليق</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row mt-4">
+                        <div class="col-lg-12 text-center">
+                            <p>لقد قمت بكتابة تعليق . شكرًا لمساهمتك!</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% else %}
+                <div class="row mt-4">
+                    <div class="col-lg-12 text-center">
+                        <p>يرجى <a href="{% url 'login' %}">تسجيل الدخول</a> لكتابة تعليق.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  {% comment %}Why choose us{% endcomment %}
+  <section class="pricing-area space">
+    <div class="pricing-shape-img1 shape-mockup d-lg-block d-none">
+      <img class="about1-shape-img-1 spin" src="{% static 'assets/img/normal/about_shape1-2.svg' %}" alt="{% trans 'image' %}" />
+      <img class="about1-shape-img-2 spin2" src="{% static 'assets/img/normal/about_shape1-1.svg' %}" alt="{% trans 'image' %}" />
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-7">
+          <div class="title-area text-center">
+            <h3 class="sub-title">{{ choose_us.subtitle|default:_('Why Choose Us') }}</h3>
+            <h2 class="sec-title">{{ choose_us.title|default:_('No Title') }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row gy-4 justify-content-center">
+        {% for card in choose_us.choose_us_card.all %}
+          <div class="col-lg-6">
+            <div class="pricing-card">
+              <div class="pricing-card-price-wrap">
+                <div class="pricing-card_icon">
+                  {% if card.icon %}
+                    <img src="{{ card.icon.url }}" alt="{{ card.title|default:_('No Title') }}" />
+                  {% else %}
+                    <img src="{% static 'assets/img/icon/default-icon.svg' %}" alt="{% trans 'Default Icon' %}" />
+                  {% endif %}
+                </div>
+              </div>
+              <div class="pricing-card-details">
+                <h4 class="pricing-card_title">{{ card.title|default:_('No Title Specified') }}</h4>
+                <p>{{ card.description|default:_('No Details Available.') }}</p>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p>
+            {% trans 'No Information Available' %}
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {% comment %}Brands{% endcomment %}
+  <section class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-xl-5 col-lg-7">
+        <div class="title-area text-center">
+          <h3 class="sub-title">{{ brand.subtitle|default:_('No Subtitle') }}</h3>
+          <h2 class="sec-title">{{ brand.title|default:_('No Title') }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="client-bg-area-2 space mb-5">
+      <div class="client-area-2 text-center">
+        <div class="container">
+          <div class="row global-carousel" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="2" data-speed="1000">
+            {% for image in brand.images.all %}
+              <div class="col-lg-auto">
+                <div class="client-logo">
+                  {% if image.image %}
+                    <img style="height: 100px ; width: 100px; border-radius: 5px;" src="{{ image.image.url }}" alt="{% trans 'Brand Image' %}" />
+                  {% else %}
+                    <img style="height: 100px;" src="{% static 'assets/img/default-image.jpg' %}" alt="{% trans 'Default Brand Image' %}" />
+                  {% endif %}
+                </div>
+              </div>
+            {% empty %}
+              <p>
+                {% trans 'No Images Available Currently' %}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+{% endblock %}
