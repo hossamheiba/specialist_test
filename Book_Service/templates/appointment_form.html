@@ -162,13 +162,60 @@
                                         <div class="col-md-6">
                                             <div class="form-group position-relative">
                                                 <div class="flatpickr-container">
-                                                    <input value="{{ data.appointment_time|default:'' }}" type="time" class="form-control flatpickr-time py-4" id="appointment_time" name="appointment_time" placeholder="{% trans 'Select Time' %}" required>
+                                                    <input value="{{ data.appointment_time|default:'' }}" type="time" class="form-control flatpickr-time py-4" id="appointment_time" name="appointment_time" placeholder="{% trans 'Select Time' %}" required
+                                                        min="08:00" max="19:00" step="900">
                                                     <span class="calendar-icon">
                                                         <i class="fas fa-clock" style="color: #F1683C;"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                const unavailableDates = {{ unavailable_dates|safe }};
+                                                const today = new Date().toISOString().split("T")[0];
+                                        
+                                                // إعداد تاريخ ووقت Flatpickr
+                                                const flatpickrConfig = {
+                                                    locale: "ar",
+                                                    minDate: today,
+                                                    disable: unavailableDates,
+                                                    onChange: function (selectedDates, dateStr, instance) {
+                                                        const inputElement = instance.input;
+                                                        if (!dateStr) {
+                                                            inputElement.classList.add("unselected-date");
+                                                        } else {
+                                                            inputElement.classList.remove("unselected-date");
+                                                        }
+                                                    }
+                                                };
+                                        
+                                                // تكوين التاريخ
+                                                flatpickr(".flatpickr-date", { ...flatpickrConfig, dateFormat: "Y-m-d" });
+                                        
+                                                // تكوين الوقت
+                                                flatpickr(".flatpickr-time", {
+                                                    enableTime: true,
+                                                    noCalendar: true,
+                                                    dateFormat: "h:i K",  // استخدام 12 ساعة مع AM/PM
+                                                    time_24hr: false,     // تعطيل تنسيق 24 ساعة
+                                                    minTime: "08:00",     // الحد الأدنى للوقت
+                                                    maxTime: "07:00 PM",  // الحد الأقصى للوقت بتنسيق 12 ساعة
+                                                });
+                                            });
+                                        </script>
+                                        
+                                                            
+                                    <style>
+                                        /* إضافة خلفية حمراء أو تغيير اللون لحقل التاريخ غير المحدد */
+                                        .flatpickr-input.unselected-date {
+                                            background-color: red;
+                                            color: white;
+                                        }
+                                    </style>
+                                    
+
                                     </div>
                                 
                                     <div class="form-group col-12">
@@ -214,47 +261,8 @@
                                 
                                     <div class="form-btn col-12">
                                         <button type="submit" class="btn btn-primary">{% trans 'Book an appointment' %}</button>
-                                    </div>
-   
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            const unavailableDates = {{ unavailable_dates|safe }};
-                                            const today = new Date().toISOString().split("T")[0];
-                                    
-                                            const flatpickrConfig = {
-                                                locale: "ar",
-                                                minDate: today,
-                                                disable: unavailableDates,
-                                                onChange: function (selectedDates, dateStr, instance) {
-                                                    const inputElement = instance.input;
-                                    
-                                                    // إذا لم يتم تحديد تاريخ، أضف فئة CSS لتغيير المظهر
-                                                    if (!dateStr) {
-                                                        inputElement.classList.add("unselected-date");
-                                                    } else {
-                                                        inputElement.classList.remove("unselected-date");
-                                                    }
-                                                }
-                                            };
-                                    
-                                            flatpickr(".flatpickr-date", { ...flatpickrConfig, dateFormat: "Y-m-d" });
-                                            flatpickr(".flatpickr-time", {
-                                                enableTime: true,
-                                                noCalendar: true,
-                                                dateFormat: "H:i",
-                                                time_24hr: true,
-                                            });
-                                        });
-                                    </script>
-                                    
-                                    <style>
-                                        /* إضافة خلفية حمراء أو تغيير اللون لحقل التاريخ غير المحدد */
-                                        .flatpickr-input.unselected-date {
-                                            background-color: red;
-                                            color: white;
-                                        }
-                                    </style>
-                                    
+
+                
                                 </form>
 
                                                 

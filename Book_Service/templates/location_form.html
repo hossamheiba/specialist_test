@@ -66,25 +66,26 @@
                         <input type="text" id="latitude" name="latitude" class="form-control mb-2 text-center" readonly>
                         <input type="text" id="longitude" name="longitude" class="form-control mb-2 text-center" readonly>
                         <div class="d-flex gap-2 justify-content-center">
-                            <button class="btn " type="button" id="get-location">حدد موقعي</button>
-                            <button class="btn " type="submit">ارسال</button>
+                            <button class="btn" type="button" id="get-location">حدد موقعي</button>
+                            <!-- تعطيل الزر عند بدء الصفحة -->
+                            <button class="btn" type="submit" id="submit-btn" disabled>ارسال</button>
                         </div>
                     </form>
                     
                     <div id="map"></div>
                     
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+            
                     <script>
                         {% if messages %}
                         {% for message in messages %}
                             Swal.fire({
-                                icon: 'error',  // هنا يمكنك تغيير النوع حسب نوع الرسالة (مثل success أو warning)
+                                icon: 'error',
                                 title: 'Oops...',
                                 text: '{{ message }}'
                             });
                         {% endfor %}
-                    {% endif %}
+                        {% endif %}
                         var map = L.map('map', {
                             attributionControl: false
                         }).setView([26.419457864236147, 50.07415669313873], 12); // النقطة المركزية
@@ -97,7 +98,7 @@
                         
                         // إنشاء دائرة حول النقطة المركزية
                         var centerLatLng = L.latLng(26.419457864236147, 50.07415669313873);
-                        var radius = 25000; // نصف قطر الدائرة 50 كيلو متر
+                        var radius = 2000; // نصف قطر الدائرة 25 كيلو متر
                     
                         var circle = L.circle(centerLatLng, {
                             color: '#1D976C',
@@ -111,37 +112,70 @@
                             var point = L.latLng(lat, lng);
                             return circle.getBounds().contains(point) && circle.getLatLng().distanceTo(point) <= radius;
                         }
-                    
-                        document.getElementById('get-location').addEventListener('click', function () {
+            
+                        document.querySelector('form').addEventListener('submit', function(event) {
+                            var latitude = document.getElementById('latitude').value;
+                            var longitude = document.getElementById('longitude').value;
+                            var submitButton = document.querySelector('button[type="submit"]');
+                            
+                            // إذا لم يتم تحديد الموقع، منع إرسال النموذج
+                            if (!latitude || !longitude) {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'يرجى تحديد الموقع.',
+                                    confirmButtonText: 'OK'
+                                });
+                                event.preventDefault();
+                            } else {
+                                // تحقق إذا كان الموقع داخل الدائرة
+                                if (!isPointInCircle(parseFloat(latitude), parseFloat(longitude), circle)) {
+                                    var userLocation = L.latLng(parseFloat(latitude), parseFloat(longitude));
+                                    var distance = centerLatLng.distanceTo(userLocation);  // حساب المسافة بين الموقع الحالي والمركز
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'أنت خارج النطاق المسموح به.',
+                                        text: 'المسافة بينك وبين النطاق المسموح به هي ' + (distance / 1000).toFixed(2) + ' كم.',
+                                        confirmButtonText: 'OK'
+                                    });
+                                    submitButton.disabled = true;  // تعطيل زر الإرسال
+                                    event.preventDefault();  // إيقاف إرسال النموذج
+                                }
+                            }
+                        });
+                        
+                        // إضافة وظيفة لتحديد الموقع عند الضغط على الزر
+                        document.getElementById('get-location').addEventListener('click', function() {
                             if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(function (position) {
+                                navigator.geolocation.getCurrentPosition(function(position) {
                                     var lat = position.coords.latitude;
                                     var lng = position.coords.longitude;
                                     
                                     document.getElementById('latitude').value = lat;
                                     document.getElementById('longitude').value = lng;
-                                    
+                    
                                     map.setView([lat, lng], 16);
-                                    if (marker) {
-                                        marker.setLatLng([lat, lng]);
-                                    } else {
-                                        marker = L.marker([lat, lng]).addTo(map);
-                                    }
-                                    
+                                    var marker = L.marker([lat, lng]).addTo(map);
+                    
+                                    // تمكين أو تعطيل الزر بناءً على الموقع
                                     if (isPointInCircle(lat, lng, circle)) {
                                         Swal.fire({
                                             icon: 'success',
                                             title: 'أنت داخل النطاق المسموح به.',
                                             confirmButtonText: 'OK'
                                         });
+                                        document.getElementById('submit-btn').disabled = false;  // تمكين زر الإرسال
                                     } else {
+                                        var userLocation = L.latLng(lat, lng);
+                                        var distance = centerLatLng.distanceTo(userLocation);  // حساب المسافة بين الموقع الحالي والمركز
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'أنت خارج النطاق المسموح به.',
+                                            text: 'المسافة بينك وبين أقرب نطاق مسموح به هو ' + (distance / 1000).toFixed(2) + ' كم.',
                                             confirmButtonText: 'OK'
                                         });
+                                        document.getElementById('submit-btn').disabled = true;  // تعطيل زر الإرسال
                                     }
-                                }, function (error) {
+                                }, function(error) {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'تعذر الحصول على الموقع',
@@ -161,31 +195,11 @@
                                 });
                             }
                         });
-                    
-                        document.querySelector('form').addEventListener('submit', function(event) {
-                            var latitude = document.getElementById('latitude').value;
-                            var longitude = document.getElementById('longitude').value;
-                            
-                            if (!latitude || !longitude) {
-                                Swal.fire({
-                                    icon: 'warning',
-                                    title: 'يرجى تحديد الموقع.',
-                                    confirmButtonText: 'OK'
-                                });
-                                event.preventDefault();
-                            } else if (!isPointInCircle(latitude, longitude, circle)) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'الموقع خارج النطاق المسموح به.',
-                                    confirmButtonText: 'OK'
-                                });
-                                event.preventDefault();
-                            }
-                        });
                     </script>
-                    
                 </div>
             </div>
+            
+            
         </div>
     </div>
 

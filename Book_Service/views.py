@@ -8,8 +8,6 @@ from Contact_Us.models import ContactUs
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
-# from django.utils.timezone import now
-from django.utils import timezone
 
 
 def send_appointment_email(appointment_details):
@@ -60,12 +58,15 @@ def check_coupon(request):
     return JsonResponse({"error": "طلب غير صالح."}, status=400)
 
 
+
+from datetime import datetime, time as dt_time  # تغيير اسم time لتجنب التعارض
+
+
 @login_required
 def book_appointment(request):
     car_brands = CarBrand.objects.all()
     contact = ContactUs.objects.first()
-    unavailable_dates = UnavailableDate.objects.all()
-    unavailable_dates = [date_obj.date.isoformat() for date_obj in unavailable_dates]
+    unavailable_dates = [date_obj.date.isoformat() for date_obj in UnavailableDate.objects.all()]
     selected_brand_id = request.GET.get("car_brand")
     car_models = CarModel.objects.filter(brand_id=selected_brand_id) if selected_brand_id else []
     engine_types = EngineType.objects.all()
@@ -74,7 +75,8 @@ def book_appointment(request):
     coupon_message = None
     discount_percentage = None
 
-    if request.method == "POST":    
+    if request.method == "POST":
+        # الحصول على البيانات من الطلب
         appointment_date = request.POST.get("appointment_date")
         appointment_time = request.POST.get("appointment_time")
         first_name = request.user.first_name
@@ -87,35 +89,48 @@ def book_appointment(request):
         notes = request.POST.get("notes", "")
         coupon_code = request.POST.get("coupon_code", "").strip()
 
+        # التحقق من الوقت
         if not appointment_time:
-            return JsonResponse({"error": "يرجى اختيار وقت الموعد."}, status=400)
+            return JsonResponse({"message": "يرجى اختيار وقت الموعد."}, status=400)
 
         try:
-            time.strptime(appointment_time, "%H:%M")
-        except ValueError:
-            return JsonResponse({"error": "الوقت المدخل غير صحيح. يرجى استخدام تنسيق HH:MM."}, status=400)
+            # تحويل الوقت المدخل من تنسيق 12 ساعة إلى 24 ساعة
+            time_obj = datetime.strptime(appointment_time, "%I:%M %p").time()
 
+            # التحقق من أن الوقت ضمن النطاق المسموح به
+            if not (dt_time(8, 0) <= time_obj <= dt_time(19, 0)):
+                return JsonResponse(
+                    {"message": "الوقت خارج النطاق المسموح به (من 8 صباحًا إلى 7 مساءً)."},
+                    status=400
+                )
+
+            # تحويل الوقت إلى تنسيق 24 ساعة قبل الحفظ
+            appointment_time = time_obj.strftime("%H:%M")
+        except ValueError:
+            return JsonResponse(
+                {"message": "الوقت المدخل غير صحيح. يرجى استخدام تنسيق HH:MM AM/PM."},
+                status=400
+            )
+
+        # التحقق من توفر الموعد
         is_booked = Appointment.objects.filter(
             appointment_date=appointment_date, appointment_time=appointment_time
         ).exists()
-
         if is_booked:
             messages.error(request, "الموعد محجوز مسبقًا. الرجاء اختيار موعد آخر.")
             return render(request, 'appointment_form.html', {
-                'data': request.POST.dict(), 
+                'data': request.POST.dict(),
                 'car_brands': car_brands,
                 'car_models': car_models,
                 'engine_types': engine_types,
                 'unavailable_dates': unavailable_dates,
                 'contact': contact,
-                'manufacturing_year':manufacturing_year,
+                'manufacturing_year': manufacturing_year,
                 'selected_brand_id': selected_brand_id,
                 'coupon_message': coupon_message
             })
 
-
-
-        coupon_code = request.POST.get("coupon_code", "").strip()
+        # التحقق من الكوبون
         if coupon_code:
             coupon = validate_coupon(coupon_code)
             if not coupon:
@@ -123,7 +138,6 @@ def book_appointment(request):
             else:
                 coupon_message = "تم تطبيق الكوبون بنجاح!"
                 discount_percentage = f"{coupon.discount_value}%"
-
 
         # إنشاء الموعد
         appointment = Appointment.objects.create(
@@ -135,10 +149,11 @@ def book_appointment(request):
             engine_type_id=engine_type,
             manufacturing_year=manufacturing_year,
             appointment_date=appointment_date,
-            appointment_time=appointment_time,
+            appointment_time=appointment_time,  # الوقت بصيغة 24 ساعة
             notes=notes,
         )
 
+        # إرسال بريد تأكيد الحجز
         send_appointment_email({
             'first_name': first_name,
             'last_name': last_name,
