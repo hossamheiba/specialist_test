@@ -98,10 +98,13 @@ form button {
                         alt="Fixturbo"></a>
                 <button class="menu-toggle"><i class="fa fa-times"></i></button>
             </div>
-            {% comment %} <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
-                <button class="icon-btn" type="button" id="search-icon"><i class="fas fa-search"></i></button>
-                <input class="form-control" type="text" name="query" placeholder="{% trans 'البحث عن ......' %}" id="search-input">
-            </form> {% endcomment %}
+             <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
+                <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
+                    <input type="text" id="searchInput" placeholder="ابحث..." onkeyup="searchPages()">
+                    <ul id="suggestionsList" style="display:none;">
+                    </ul>                            
+                </form>
+            </form> 
 
             <div class="mobile-menu">
                 <ul>
@@ -398,12 +401,77 @@ form button {
                                         src="{% static 'assets/img/شعار-شركة-المتخصصون-المعتمد.png' %}" alt="logo" /></a>
                             </div>
                         </div>
-                        {% comment %} <div class="col-auto m-auto d-xl-block d-none">
+                        <div class="col-auto m-auto d-xl-block d-none">
                             <form class="search-form d-flex" method="GET" action="" id="mobile-search-form">
-                                <button class="icon-btn" type="button" id="search-icon"><i class="fas fa-search"></i></button>
-                                <input class="form-control" type="text" name="query" placeholder="{% trans 'البحث عن ......' %}" id="search-input">
+                                <input type="text" id="searchInput" placeholder="ابحث..." onkeyup="searchPages()">
+                                <ul id="suggestionsList" style="display:none;">
+                                </ul>                            
                             </form>
-                        </div> {% endcomment %}
+                        </div> 
+
+                        <script>
+                            function searchPages() {
+                                let input = document.getElementById('searchInput').value.toLowerCase();
+                                let suggestions = document.getElementById('suggestionsList');
+                                suggestions.innerHTML = ''; // إعادة تعيين العناصر في القائمة المنسدلة
+                        
+                                // إذا كانت قيمة البحث غير فارغة، اعرض الصفحات المطابقة
+                                if (input !== '') {
+                                    let pages = [
+                                        { name: 'ميكانيكا', url: '/Our_Services/mechanics/' },
+                                        { name: 'كهرباء', url: '/Our_Services/electricity/' },
+                                        { name: 'الهيكل والدهان', url: '/Our_Services/bodyworkandpainting/' },
+                                        { name: 'عزل حراري وصوتي', url: '/Our_Services/thermalandsoundinsulation/' },
+                                        { name: 'برمجة السيارات', url: '/Our_Services/carprogramming/' },
+                                        { name: 'تعليق رياضي', url: '/Our_Services/sportssuspension/' },
+                                        { name: 'مساعدة على الطريق', url: '/Our_Services/roadsideassistance/' }
+                                    ];
+                        
+                                    // تصفية الصفحات بناءً على النص المدخل
+                                    pages.forEach(function(page) {
+                                        if (page.name.toLowerCase().includes(input)) {
+                                            let li = document.createElement('li');
+                                            li.innerHTML = `<a href="${page.url}">${page.name}</a>`;
+                                            suggestions.appendChild(li);
+                                        }
+                                    });
+                        
+                                    // عرض القائمة المنسدلة إذا تم العثور على نتائج
+                                    if (suggestions.children.length > 0) {
+                                        suggestions.style.display = 'block';
+                                    } else {
+                                        suggestions.style.display = 'none';
+                                    }
+                                } else {
+                                    suggestions.style.display = 'none';
+                                }
+                            }
+                        </script>
+                        
+                        <style>
+                            #suggestionsList {
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                border: 1px solid #ccc;
+                                max-height: 200px;
+                                overflow-y: auto;
+                                position: absolute;
+                                width: 200px;
+                                background-color: white;
+                                z-index: 100;
+                            }
+                            
+                            #suggestionsList li {
+                                padding: 10px;
+                                cursor: pointer;
+                            }
+                            
+                            #suggestionsList li:hover {
+                                background-color: #f0f0f0;
+                            }
+                            
+                        </style>
                     </div>
                 </div>
             </div>

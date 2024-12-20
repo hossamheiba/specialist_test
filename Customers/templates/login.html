@@ -49,35 +49,33 @@
                     document.getElementById('phone_number').addEventListener('input', function(event) {
                         var phoneNumber = event.target.value;
                         
-                        // تحقق إذا كان الرقم يبدأ بـ 05
                         if (!phoneNumber.startsWith('05')) {
                             document.getElementById('phoneHelp').style.display = 'block';  // عرض التنبيه
                         } else {
                             document.getElementById('phoneHelp').style.display = 'none';  // إخفاء التنبيه
                         }
                         
-                        // السماح فقط بالأرقام وتحديد أقصى عدد من الأرقام (10 أرقام)
                         event.target.value = phoneNumber.replace(/[^0-9]/g, '').slice(0, 10);
                         
-                        // تحقق من طول الرقم (يجب أن يكون 10 أرقام)
+
                         if (event.target.value.length === 10) {
-                            document.getElementById('phoneLengthHelp').style.display = 'none';  // إخفاء التنبيه إذا كان الرقم 10 أرقام
+                            document.getElementById('phoneLengthHelp').style.display = 'none';  
                         } else {
-                            document.getElementById('phoneLengthHelp').style.display = 'block';  // عرض التنبيه إذا كان الرقم أقل من 10 أرقام
+                            document.getElementById('phoneLengthHelp').style.display = 'block';  
                         }
                     });
                 
                     document.getElementById('sendOtpBtn').addEventListener('click', function(event) {
                         var phoneNumber = document.getElementById('phone_number').value;
                 
-                        // تحقق من الرقم إذا بدأ بـ 05
+
                         if (!phoneNumber.startsWith('05') || phoneNumber.length !== 10) {
-                            event.preventDefault();  // منع الإرسال إذا لم يبدأ الرقم بـ 05 أو لم يحتوي على 10 أرقام
+                            event.preventDefault();  
                             if (!phoneNumber.startsWith('05')) {
-                                document.getElementById('phoneHelp').style.display = 'block';  // عرض التنبيه لعدم البدء بـ 05
+                                document.getElementById('phoneHelp').style.display = 'block';  
                             }
                             if (phoneNumber.length !== 10) {
-                                document.getElementById('phoneLengthHelp').style.display = 'block';  // عرض التنبيه إذا لم يحتوي على 10 أرقام
+                                document.getElementById('phoneLengthHelp').style.display = 'block';  
                             }
                         }
                     });

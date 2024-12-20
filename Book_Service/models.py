@@ -1,3 +1,5 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 from Customers.models import UserProfile
 from datetime import date
@@ -56,18 +58,16 @@ class Appointment(models.Model):
     appointment_date = models.DateField(verbose_name="Appointment Date")
     appointment_time = models.TimeField(verbose_name="Appointment Time")
     notes = models.TextField(blank=True, null=True, verbose_name="Notes")
-    coupon = models.ForeignKey(DiscountCoupon, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Coupon")
-    discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    discount_value = models.IntegerField(null=True, blank=True, verbose_name="Discount Value")  # حقل جديد
 
     
     def __str__(self):
         return f"{self.appointment_date} at {self.appointment_time}"
     
     
-    def apply_coupon(self):
-        if self.coupon and self.coupon.is_valid():
-            return self.coupon.discount_value
-        return 0 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
 
 
 

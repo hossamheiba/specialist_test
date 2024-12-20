@@ -10,10 +10,8 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
-        background-color: #eaeff3;
         direction: ltr; /* الافتراضي LTR */
         animation: fadeIn 1s ease-in-out;
-        min-height: 100vh;
     }
     
     .profile-container.rtl {
@@ -58,12 +56,12 @@
     
     /* صورة الملف الشخصي */
     .profile-image {
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         object-fit: cover;
         margin: 20px auto;
-        border: 5px solid #f26b3c;
+        border: 1px solid #f26b3c;
         transition: transform 0.3s ease-in-out;
     }
     
@@ -146,22 +144,24 @@
             padding: 10px 20px;
         }
     }
+
+    
     </style>
     
-    <div class="profile-container {% if language == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="profile-container ">
         <div class="profile-card">
             <h1 class="profile-title">{% trans "Profile" %}</h1>
             {% if user.profile_image %}
             <img src="{{ user.profile_image.url }}" alt="{% trans 'Profile Image' %}" class="profile-image">
             {% else %}
-            <img src="{% static 'default-avatar.png' %}" alt="{% trans 'Default Profile Image' %}" class="profile-image">
-            {% endif %}
-                    
-            <div class="profile-details">
-                <p><i class="fas fa-phone"></i> <strong>{% trans "Phone Number:" %}</strong> {{ user.phone_number }}</p>
-                <p><i class="fas fa-user"></i> <strong>{% trans "First Name:" %}</strong> {{ user.first_name }}</p>
-                <p><i class="fas fa-user"></i> <strong>{% trans "Last Name:" %}</strong> {{ user.last_name }}</p>
+            <img src="{% static 'assets/img/testimonial/user.png' %}" alt="{% trans 'Default Profile Image' %}" class="profile-image">
+                   {% endif %}
+            <div class="profile-details" style="direction: {% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %};">
+                <p><i class="fas fa-phone"></i> <strong class="mx-3">{% trans "Phone Number:" %}</strong> {{ user.phone_number }}</p>
+                <p><i class="fas fa-user"></i> <strong class="mx-3">{% trans "First Name:" %}</strong> {{ user.first_name }}</p>
+                <p><i class="fas fa-user"></i> <strong class="mx-3">{% trans "Last Name:" %}</strong> {{ user.last_name }}</p>
             </div>
+            
             
 
             

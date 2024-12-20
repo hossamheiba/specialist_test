@@ -15,21 +15,46 @@ class CarBrandAdmin(admin.ModelAdmin):
 
 
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'phone_number', 'car_brand', 'car_model', 'engine_type', 'manufacturing_year', 'created_at', 'appointment_date', 'formatted_appointment_time')
-    readonly_fields = ('first_name', 'last_name', 'phone_number', 'car_brand', 'car_model', 'engine_type', 'manufacturing_year', 'created_at', 'appointment_date', 'formatted_appointment_time', 'notes')
+    list_display = (
+        'first_name', 
+        'last_name', 
+        'phone_number', 
+        'car_brand', 
+        'car_model', 
+        'engine_type', 
+        'manufacturing_year', 
+        'created_at', 
+        'appointment_date', 
+        'formatted_appointment_time',  # عرض الوقت بتنسيق 12 ساعة
+        'formatted_discount_value',  
+    )
+    readonly_fields = (
+        'first_name', 
+        'last_name', 
+        'phone_number', 
+        'car_brand', 
+        'car_model', 
+        'engine_type', 
+        'manufacturing_year', 
+        'created_at', 
+        'appointment_date', 
+        'formatted_appointment_time', 
+        'formatted_discount_value', 
+        'notes', 
+    )
 
     search_fields = (
         'first_name', 
         'last_name', 
         'phone_number', 
-        'car_brand__name',  # البحث في اسم العلامة التجارية للسيارة
-        'car_model__name',  # البحث في اسم طراز السيارة
-        'engine_type__name',  # البحث في نوع المحرك
+        'car_brand__name',    
+        'car_model__name',   
+        'engine_type__name',  
         'manufacturing_year', 
         'appointment_date', 
         'appointment_time'
     )
-    
+
     list_filter = (
         'first_name', 
         'last_name', 
@@ -41,10 +66,16 @@ class AppointmentAdmin(admin.ModelAdmin):
         'appointment_date', 
         'appointment_time'
     )
+
     def formatted_appointment_time(self, obj):
-        return obj.appointment_time.strftime("%H:%M") if obj.appointment_time else None
+        return obj.appointment_time.strftime("%I %p") if obj.appointment_time else None
 
     formatted_appointment_time.short_description = 'Appointment Time'
+
+    def formatted_discount_value(self, obj):
+        return f"{obj.discount_value}%" if obj.discount_value is not None else None
+
+    formatted_discount_value.short_description = 'Discount Value'
 
 
 class UnavailableDateAdmin(admin.ModelAdmin):

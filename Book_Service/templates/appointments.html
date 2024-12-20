@@ -120,7 +120,7 @@ html[dir="rtl"] .appointment-card .value {
         <h3 class="text-center">{% trans 'Your Appointments' %}</h3>
 
         <!-- الجدول للمواعيد (للشاشات الكبيرة) -->
-        <table class="appointment-table">
+        <table class="appointment-table d-none d-md-table">
             <thead>
                 <tr>
                     <th><i class="fas fa-calendar-alt icon mx-1"></i> {% trans 'Appointment Date' %}</th>
@@ -128,23 +128,25 @@ html[dir="rtl"] .appointment-card .value {
                     <th><i class="fas fa-car icon mx-1"></i> {% trans 'Car Brand' %}</th>
                     <th><i class="fas fa-car-side icon mx-1"></i> {% trans 'Car Model' %}</th>
                     <th><i class="fas fa-cogs icon mx-1"></i> {% trans 'Engine Type' %}</th>
+                    <th><i class="fas fa-percent icon mx-1"></i> {% trans 'Discount Percentage' %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for appointment in appointments %}
                     <tr>
                         <td>{{ appointment.appointment_date }}</td>
-                        <td>{{ appointment.appointment_time|time:"H:i" }}</td>
+                        <td>{{ appointment.appointment_time|time:"g:i A" }}</td>
                         <td>{{ appointment.car_brand.name }}</td>
                         <td>{{ appointment.car_model.name }}</td>
                         <td>{{ appointment.engine_type.name }}</td>
+                        <td>{% if appointment.discount_value %} {{ appointment.discount_value }}% {% else %} - {% endif %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <!-- تصميم الكروت (للشاشات الصغيرة) -->
-        <div class="appointment-card-container">
+        <div class="appointment-card-container d-md-none">
             {% for appointment in appointments %}
                 <div class="appointment-card">
                     <div>
@@ -155,7 +157,7 @@ html[dir="rtl"] .appointment-card .value {
                     <div>
                         <i class="fas fa-clock icon"></i>
                         <span class="label">{% trans 'Appointment Time' %}:</span> 
-                        <span class="value">{{ appointment.appointment_time|time:"H:i" }}</span>
+                        <span class="value">{{ appointment.appointment_time|time:"g:i A"}}</span>
                     </div>
                     <div>
                         <i class="fas fa-car icon"></i>
@@ -172,6 +174,19 @@ html[dir="rtl"] .appointment-card .value {
                         <span class="label">{% trans 'Engine Type' %}:</span> 
                         <span class="value">{{ appointment.engine_type.name }}</span>
                     </div>
+                    {% if appointment.discount_value %} 
+                    <div>
+                        <i class="fas fa-percent icon"></i>
+                        <span class="label">{% trans 'Discount Percentage' %}:</span> 
+                        <span class="value">{{ appointment.discount_value }}%</span>
+                    </div>
+                    {% else %} 
+                    <div>
+                        <i class="fas fa-percent icon"></i>
+                        <span class="label">{% trans 'Discount Percentage' %}:</span> 
+                        <span class="value">-</span>
+                    </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

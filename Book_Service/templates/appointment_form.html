@@ -191,24 +191,23 @@
                                                     }
                                                 };
                                         
-                                                // تكوين التاريخ
                                                 flatpickr(".flatpickr-date", { ...flatpickrConfig, dateFormat: "Y-m-d" });
                                         
-                                                // تكوين الوقت
                                                 flatpickr(".flatpickr-time", {
                                                     enableTime: true,
                                                     noCalendar: true,
-                                                    dateFormat: "h:i K",  // استخدام 12 ساعة مع AM/PM
-                                                    time_24hr: false,     // تعطيل تنسيق 24 ساعة
-                                                    minTime: "08:00",     // الحد الأدنى للوقت
-                                                    maxTime: "07:00 PM",  // الحد الأقصى للوقت بتنسيق 12 ساعة
+                                                    dateFormat: "h:i K",  
+                                                    time_24hr: false,    
+                                                    minTime: "08:00 AM", 
+                                                    maxTime: "07:00 PM", 
+                                                    minuteIncrement: 15, 
+
                                                 });
                                             });
                                         </script>
                                         
                                                             
                                     <style>
-                                        /* إضافة خلفية حمراء أو تغيير اللون لحقل التاريخ غير المحدد */
                                         .flatpickr-input.unselected-date {
                                             background-color: red;
                                             color: white;
